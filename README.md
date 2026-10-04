@@ -260,10 +260,10 @@ We welcome contributions! Please follow these steps:
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ### Academic Context
-This project was developed as part of my academic studies at [Your School/University Name].  
+This project was developed as part of my academic studies at Republic Polytechnic.  
 **Project ID:** SOI-2024-2420-0033  
-**Course:** [Course Name/Code]  
-**Duration:** 15 Weeks (2024)
+**Course:** Part-time Diploma in Software Engineering/TGS-2023035743 
+**Duration:** 15 Weeks (2026)
 
 While this is an academic project, the code is open-sourced under MIT License to:
 - 📚 Demonstrate best practices in software development
@@ -283,7 +283,7 @@ While this is an academic project, the code is open-sourced under MIT License to
 
 ## 🙏 Acknowledgments
 
-This project was developed as part of my coursework at [University/School Name].  
+This project was developed as part of my coursework at Republic Polytechnic.  
 Special thanks to my instructors and peers for their guidance and feedback.
 
 **Note:** This is an educational project designed to solve real-world inventory management challenges for SME businesses.
