@@ -3,6 +3,8 @@
 [![Project Status](https://img.shields.io/badge/Status-In%20Development-yellow)](https://github.com/yourusername/inventory-management-system)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-Web-green)](https://github.com/yourusername/inventory-management-system)
+[![Academic](https://img.shields.io/badge/Project-Academic-purple)](https://github.com/yourusername/inventory-management-system)
+
 
 > **Project ID:** SOI-2024-2420-0033  
 > **Duration:** 15 Weeks  
