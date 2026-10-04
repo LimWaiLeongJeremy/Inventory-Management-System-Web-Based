@@ -259,6 +259,18 @@ We welcome contributions! Please follow these steps:
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+### Academic Context
+This project was developed as part of my academic studies at [Your School/University Name].  
+**Project ID:** SOI-2024-2420-0033  
+**Course:** [Course Name/Code]  
+**Duration:** 15 Weeks (2024)
+
+While this is an academic project, the code is open-sourced under MIT License to:
+- 📚 Demonstrate best practices in software development
+- 🤝 Allow others to learn from the implementation
+- 💼 Showcase technical skills for professional opportunities
+- 🌟 Contribute to the open-source community
+
 ---
 
 ## 📧 Contact
@@ -271,9 +283,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- Designed for SME businesses including pet shops, IT & gadget stores, and mini supermarkets
-- Built to address real-world inventory management challenges
-- Special thanks to all stakeholders and end-users for their valuable feedback
+This project was developed as part of my coursework at [University/School Name].  
+Special thanks to my instructors and peers for their guidance and feedback.
+
+**Note:** This is an educational project designed to solve real-world inventory management challenges for SME businesses.
 
 ---
 
