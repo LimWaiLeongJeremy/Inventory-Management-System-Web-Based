@@ -54,11 +54,11 @@ Currently, companies manually record production inventory, leading to inefficien
 | Category | Technology |
 |----------|-----------|
 | **Frontend** | HTML, CSS, JavaScript (Responsive Design) |
-| **Backend** | Python/PHP/Node.js *(to be determined)* |
-| **Database** | SQL (MySQL/PostgreSQL) |
+| **Backend** | Python/Flask/Node.js *(to be determined)* |
+| **Database** | SQL (MySQL/PostgreSQL) *(to be determined)* |
 | **Security** | Prepared SQL Statements, Password Hashing |
-| **Deployment** | Web Server (Apache/Nginx) |
-| **Development Tools** | Git, VS Code, PTDSE, DBC |
+| **Deployment** | Web Server (Apache/Nginx) *(to be determined)* |
+| **Development Tools** | Git, VS Code |
 
 ---
 
