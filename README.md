@@ -261,9 +261,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📧 Contact
 
-**Project Maintainer:** [Your Name]  
-**Email:** your.email@example.com  
-**Project Link:** [https://github.com/yourusername/inventory-management-system](https://github.com/yourusername/inventory-management-system)
+**Project Maintainer:** 
+**Email:**   
+**Project Link:** [https://github.com/LimWaiLeongJeremy/Inventory-Management-System-Web-Based](https://github.com/LimWaiLeongJeremy/Inventory-Management-System-Web-Based)
 
 ---
 
@@ -277,9 +277,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📌 Project Status
 
-**Current Phase:** Design  
-**Completion:** 20%  
-**Next Milestone:** Backend Development (Week 6)
+**Current Phase:** Planning & Requirements  
+**Completion:** 0%  
+**Next Milestone:** Design (Week 3)
 
 ---
 
