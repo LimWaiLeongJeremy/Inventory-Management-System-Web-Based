@@ -7,3 +7,12 @@ Jinja2==3.1.6
 MarkupSafe==3.0.4
 Werkzeug==3.1.9
 flask-cors==6.0.5
+
+# DB
+psycopg==3.3.6
+psycopg-binary==3.3.6
+tzdata==2026.5
+sqlalchemy==2.1.6
+
+# Secret
+python-dotenv==1.2.4
