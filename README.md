@@ -56,10 +56,10 @@ Currently, companies manually record production inventory, leading to inefficien
 | Category | Technology |
 |----------|-----------|
 | **Frontend** | HTML, CSS, JavaScript (Responsive Design) |
-| **Backend** | Python/Flask/Node.js *(to be determined)* |
-| **Database** | SQL (MySQL/PostgreSQL) *(to be determined)* |
+| **Backend** | Python/Flask |
+| **Database** | SQL (PostgreSQL) |
 | **Security** | Prepared SQL Statements, Password Hashing |
-| **Deployment** | Web Server (Apache/Nginx) *(to be determined)* |
+| **Deployment** | Web Server (Werkzeug) |
 | **Development Tools** | Git, VS Code |
 
 ---
@@ -68,7 +68,7 @@ Currently, companies manually record production inventory, leading to inefficien
 
 ### 1️⃣ **Scope**
 - ✅ Mobile-friendly responsive website
-- ✅ Different user views (Admin & Normal User)
+- ✅ Different user views (Admin, Supervisor & Normal User)
 - ✅ Inbound/Outbound production number entry
 - ✅ Report generation and viewing
 - ✅ Stock-taking and current stock level tracking
@@ -86,6 +86,10 @@ Currently, companies manually record production inventory, leading to inefficien
 - Perform stock-taking operations
 - Generate and view comprehensive reports (Inbound/Outbound/Movement/Transactions/Stock Levels)
 
+#### Admin:
+- All standard user and Supervisors capabilities
+- Manage user accounts and profiles, including adding, editing, and deleting users
+
 ### 3️⃣ **Technical Requirements**
 - 🔒 **Secure SQL Database** with prepared statements
 - 🎨 **User-Friendly Interface** - Easy to learn and navigate
@@ -98,13 +102,13 @@ Currently, companies manually record production inventory, leading to inefficien
 
 ## 📅 Development Timeline
 
-| Phase | Duration | Milestones |
+| Phase | Duration | Milestones | Status |
 |-------|----------|-----------|
-| **Planning & Requirements** | Week 1-2 | Requirements gathering, documentation |
-| **Design** | Week 3-5 | Database schema, UI/UX mockups |
-| **Development** | Week 6-11 | Backend, frontend, core features, reporting |
-| **Testing** | Week 12-14 | QA, UAT, bug fixes |
-| **Deployment** | Week 15 | Training, go-live, handover |
+| **Planning & Requirements** | Week 1-2 | Requirements gathering, documentation | In Progress |
+| **Design** | Week 3-5 | Database schema, UI/UX mockups | Not Started |
+| **Development** | Week 6-11 | Backend, frontend, core features, reporting | Not Started |
+| **Testing** | Week 12-14 | QA, UAT, bug fixes | Not Started |
+| **Deployment** | Week 15 | Training, go-live, handover | Not Started |
 
 **Total Duration:** 15 Weeks
 
@@ -127,7 +131,8 @@ inventory-management-system/
 │   └── components/      # Reusable UI components
 │
 ├── database/            # Database scripts
-│   ├── schema.sql       # Database structure
+│   ├── schema.py        # Database structure
+│   ├── query.py         # Database query
 │   └── seed.sql         # Sample data
 │
 ├── docs/                # Documentation
@@ -149,9 +154,8 @@ inventory-management-system/
 ## 🚦 Getting Started
 
 ### Prerequisites
-- Web server (Apache/Nginx)
-- SQL Database (MySQL 5.7+ or PostgreSQL 12+)
-- PHP 7.4+ / Python 3.8+ / Node.js 14+ *(depending on final tech choice)*
+- Web server (Pythin/Flask) *install requirments.txt
+- Node.js 14+ 
 - Git
 
 ### Installation
@@ -161,13 +165,13 @@ inventory-management-system/
 git clone https://github.com/yourusername/inventory-management-system.git
 
 # Navigate to project directory
-cd inventory-management-system
+cd inventory-management-system/backend
 
 # Install dependencies
-# (Commands will be added once tech stack is finalized)
+pip install -r requirements.txt      
 
 # Set up database
-# Import schema.sql into your SQL database
+Add a .env file with the DATABASE_URL in backend directory
 
 # Configure environment variables
 cp .env.example .env
@@ -202,8 +206,9 @@ cp .env.example .env
 ## 🗺️ Roadmap
 
 ### Phase 1 (Weeks 1-5) - Foundation ✅
-- [ ] Requirements gathering
-- [ ] Database design
+- [x] Requirements gathering
+- [x] Database design
+- [ ] Setup Dev Env
 - [ ] UI/UX mockups
 
 ### Phase 2 (Weeks 6-11) - Development 🚧
@@ -293,7 +298,7 @@ Special thanks to my instructors and peers for their guidance and feedback.
 ## 📌 Project Status
 
 **Current Phase:** Planning & Requirements  
-**Completion:** 0%  
+**Completion:** 10%  
 **Next Milestone:** Design (Week 3)
 
 ---
