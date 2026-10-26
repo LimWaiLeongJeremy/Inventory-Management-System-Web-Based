@@ -206,8 +206,9 @@ cp .env.example .env
 ## 🗺️ Roadmap
 
 ### Phase 1 (Weeks 1-5) - Foundation ✅
-- [ ] Requirements gathering
-- [ ] Database design
+- [x] Requirements gathering
+- [x] Database design
+- [ ] Setup Dev Env
 - [ ] UI/UX mockups
 
 ### Phase 2 (Weeks 6-11) - Development 🚧
