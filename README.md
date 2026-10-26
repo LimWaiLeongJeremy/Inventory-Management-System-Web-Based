@@ -86,6 +86,10 @@ Currently, companies manually record production inventory, leading to inefficien
 - Perform stock-taking operations
 - Generate and view comprehensive reports (Inbound/Outbound/Movement/Transactions/Stock Levels)
 
+#### Admin:
+- All standard user and Supervisors capabilities
+- Manage user accounts and profiles, including adding, editing, and deleting users
+
 ### 3️⃣ **Technical Requirements**
 - 🔒 **Secure SQL Database** with prepared statements
 - 🎨 **User-Friendly Interface** - Easy to learn and navigate
