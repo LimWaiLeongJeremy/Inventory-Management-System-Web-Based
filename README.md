@@ -131,7 +131,8 @@ inventory-management-system/
 │   └── components/      # Reusable UI components
 │
 ├── database/            # Database scripts
-│   ├── schema.sql       # Database structure
+│   ├── schema.py        # Database structure
+│   ├── query.py         # Database query
 │   └── seed.sql         # Sample data
 │
 ├── docs/                # Documentation
