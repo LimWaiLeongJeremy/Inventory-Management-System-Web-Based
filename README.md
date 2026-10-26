@@ -154,9 +154,8 @@ inventory-management-system/
 ## 🚦 Getting Started
 
 ### Prerequisites
-- Web server (Apache/Nginx)
-- SQL Database (MySQL 5.7+ or PostgreSQL 12+)
-- PHP 7.4+ / Python 3.8+ / Node.js 14+ *(depending on final tech choice)*
+- Web server (Pythin/Flask) *install requirments.txt
+- Node.js 14+ 
 - Git
 
 ### Installation
@@ -166,13 +165,13 @@ inventory-management-system/
 git clone https://github.com/yourusername/inventory-management-system.git
 
 # Navigate to project directory
-cd inventory-management-system
+cd inventory-management-system/backend
 
 # Install dependencies
-# (Commands will be added once tech stack is finalized)
+pip install -r requirements.txt      
 
 # Set up database
-# Import schema.sql into your SQL database
+Add a .env file with the DATABASE_URL in backend directory
 
 # Configure environment variables
 cp .env.example .env
