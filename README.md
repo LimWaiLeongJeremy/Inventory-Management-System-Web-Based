@@ -102,13 +102,13 @@ Currently, companies manually record production inventory, leading to inefficien
 
 ## 📅 Development Timeline
 
-| Phase | Duration | Milestones |
+| Phase | Duration | Milestones | Status |
 |-------|----------|-----------|
-| **Planning & Requirements** | Week 1-2 | Requirements gathering, documentation |
-| **Design** | Week 3-5 | Database schema, UI/UX mockups |
-| **Development** | Week 6-11 | Backend, frontend, core features, reporting |
-| **Testing** | Week 12-14 | QA, UAT, bug fixes |
-| **Deployment** | Week 15 | Training, go-live, handover |
+| **Planning & Requirements** | Week 1-2 | Requirements gathering, documentation | In Progress |
+| **Design** | Week 3-5 | Database schema, UI/UX mockups | Not Started |
+| **Development** | Week 6-11 | Backend, frontend, core features, reporting | Not Started |
+| **Testing** | Week 12-14 | QA, UAT, bug fixes | Not Started |
+| **Deployment** | Week 15 | Training, go-live, handover | Not Started |
 
 **Total Duration:** 15 Weeks
 
