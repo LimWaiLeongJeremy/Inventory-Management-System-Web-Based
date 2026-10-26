@@ -68,7 +68,7 @@ Currently, companies manually record production inventory, leading to inefficien
 
 ### 1️⃣ **Scope**
 - ✅ Mobile-friendly responsive website
-- ✅ Different user views (Admin & Normal User)
+- ✅ Different user views (Admin, Supervisor & Normal User)
 - ✅ Inbound/Outbound production number entry
 - ✅ Report generation and viewing
 - ✅ Stock-taking and current stock level tracking
