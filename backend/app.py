@@ -47,6 +47,30 @@ def getAllLocation():
     }), 200
 
 
+# product api
+@app.route('/api/locations/<string:location_name>/products', methods=['GET'])
+def getProductByLocation(location_name):
+
+    loc = next(
+        (loc for loc in model.location if loc['location_name'] == location_name),
+        None
+    )
+    if loc is None:
+        return jsonify({
+            'status': 'error',
+            'message': 'Location not found'
+        }), 404
+
+    return jsonify({
+        'status': "success",
+        'location': {
+            'location_id': loc['location_id'],
+            'location_name': loc['location_name']
+        },
+        'data': loc['product']
+    }), 200
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
+
+
