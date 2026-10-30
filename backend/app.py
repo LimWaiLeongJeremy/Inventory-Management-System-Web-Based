@@ -47,7 +47,17 @@ def heartbeat():
         "service": "mIventeroy-app"
     }), 200
 
+# location API
+@app.route('/api/location', methods=['GET'])
+def getAllLocation():
 
+    # init location model
+    locations = model.location
+
+    return jsonify({
+        "status": "success",
+        "data": locations
+    })
 
 
 
