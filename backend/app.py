@@ -9,6 +9,9 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
+location = model.location
+
+
 # ========== Routing frontend ==========
 @app.route('/')
 @app.route('/index.html')
@@ -38,7 +41,7 @@ def getAllLocation():
             'location_name': loc['location_name'],
             'description': loc['description']
         }
-        for loc in model.location 
+        for loc in location 
     ]
 
     return jsonify({
@@ -52,7 +55,7 @@ def getAllLocation():
 def getProductByLocation(location_name):
 
     loc = next(
-        (loc for loc in model.location if loc['location_name'] == location_name),
+        (loc for loc in location if loc['location_name'] == location_name),
         None
     )
     if loc is None:
@@ -69,6 +72,33 @@ def getProductByLocation(location_name):
         },
         'data': loc['product']
     }), 200
+
+@app.route('/api/product/summary', methods=['GET'])
+def getProdSum():
+    product_summary = {}
+
+    for loc in location:
+        for product in loc['product']:
+            product_id = product['product_id']
+
+            if product_id not in product_summary:
+                product_summary[product_id] = {
+                    'product_id': product['product_id'],
+                    'sku': product['sku'],
+                    'name': product['name'],
+                    'category': product['category'],
+                    'unit': 0,
+                    'reorder_level': product['reorder_level'],
+                    'is_activve': product['is_active'],
+                    'create_at': product['create_at']
+                }
+            product_summary[product_id]['unit'] += product['unit']
+
+    return jsonify({
+        'status': 'success',
+        'products': list(product_summary.values())
+    }), 200
+    
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
