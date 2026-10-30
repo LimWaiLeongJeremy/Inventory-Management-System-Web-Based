@@ -1,13 +1,13 @@
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
+# from flask import Flask
+# from flask_sqlalchemy import SQLAlchemy
 
-db = SQLAlchemy()
+# db = SQLAlchemy()
 
-def create_app():
-    app = Flask(__name__)
-    app.config.from_object('config.Config')
+# def create_app():
+#     app = Flask(__name__)
+#     app.config.from_object('config.Config')
     
-    # Initialize the extension
-    db.init_app(app)
+#     # Initialize the DB
+#     db.init_app(app)
     
-    return app
+#     return app
