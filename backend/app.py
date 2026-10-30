@@ -32,7 +32,7 @@ def heartbeat():
 
 # location API
 @app.route('/api/location', methods=['GET'])
-def getAllLocation():
+def getAllLoc():
 
     # query location 
     locations = [
@@ -52,7 +52,7 @@ def getAllLocation():
 
 # product api
 @app.route('/api/locations/<string:location_name>/products', methods=['GET'])
-def getProductByLocation(location_name):
+def getProdByLoc(location_name):
 
     loc = next(
         (loc for loc in location if loc['location_name'] == location_name),
@@ -98,7 +98,43 @@ def getProdSum():
         'status': 'success',
         'products': list(product_summary.values())
     }), 200
+
+@app.route('/api/products/<string:product_id>/locations', methods=['GET'])
+def getProLoc(product_id):
+    product_info = None
+    locations = []
+    total_quantity = 0
+
+    for loc in location: 
+        for product in loc['product']:
+            if product['product_id'] == product_id:
+                if product_info is None:
+                    product_info = {
+                        'product_id': product['product_id'],
+                        'sku': product['sku'],
+                        'name': product['name']
+                    }
+                locations.append({
+                    'location_id': loc['location_id'],
+                    'location_name': loc['location_name'],
+                    'quntity': product['unit']
+                })
+                total_quantity += product['unit']
+
+    if product_info is None: 
+        return jsonify({
+            'status': 'error',
+            'message': 'Product not found'
+        }), 404
     
+    return jsonify({
+        'status': 'success',
+        'data': {
+            **product_info,
+            'total_quantity': total_quantity,
+            'location': locations
+        }
+    }), 200
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
