@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_cors import CORS
 
-from controllers.controller import product_bp
+from controllers.product_controller import product_bp
 
 app = Flask(__name__)
 CORS(app)
