@@ -1,5 +1,7 @@
-# import os
+import os
+from dotenv import load_dotenv
 
-# class Config:
-#     SQLALCHEMY_DATABASE_URI = os.environ["DATABASE_URL"]  
-#     SQLALCHEMY_TRACK_MODIFICATIONS = False
+load_dotenv()
+
+class Config:
+    DATABASE_URL = os.getenv("DATABASE_URL")
