@@ -22,7 +22,7 @@ def getProdByLoc(location_name):
 
 
 @product_bp.route('/api/product/<string:product_name>/summary', methods=['GET'])
-def getProdSum(product_name):
+def getLocByProd(product_name):
     products = get_all_product_summary(product_name)
 
     return jsonify({
@@ -30,40 +30,3 @@ def getProdSum(product_name):
         'product name': product_name,
         'data': products
     }), 200
-
-# # @product_bp.route('/api/products/<string:product_id>/locations', methods=['GET'])
-# # def getProLoc(product_id):
-# #     product_info = None
-# #     locations = []
-# #     total_quantity = 0
-
-# #     for loc in location: 
-# #         for product in loc['product']:
-# #             if product['product_id'] == product_id:
-# #                 if product_info is None:
-# #                     product_info = {
-# #                         'product_id': product['product_id'],
-# #                         'sku': product['sku'],
-# #                         'name': product['name']
-# #                     }
-# #                 locations.append({
-# #                     'location_id': loc['location_id'],
-# #                     'location_name': loc['location_name'],
-# #                     'quntity': product['unit']
-# #                 })
-# #                 total_quantity += product['unit']
-
-# #     if product_info is None: 
-# #         return jsonify({
-# #             'status': 'error',
-# #             'message': 'Product not found'
-# #         }), 404
-    
-# #     return jsonify({
-# #         'status': 'success',
-# #         'data': {
-# #             **product_info,
-# #             'total_quantity': total_quantity,
-# #             'location': locations
-# #         }
-# #     }), 200

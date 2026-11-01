@@ -20,7 +20,7 @@ GET_PRODUCT_BY_LOCATION = """
         l.name ILIKE %s;
 """
 
-GET_PRODUCT_SUMMARY = """
+GET_LOCTION_BY_PRODUCT = """
     SELECT 
         l.name location, 
         p.sku, 

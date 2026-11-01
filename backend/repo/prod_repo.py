@@ -1,5 +1,5 @@
 from database.db import get_db_connection
-from .query.prod_qry import GET_PRODUCT_BY_LOCATION, GET_PRODUCT_SUMMARY
+from .query.prod_qry import GET_PRODUCT_BY_LOCATION, GET_LOCATION_BY_PRODUCT
 from models.prod_model import Product
 
 def get_product_by_location(location):
@@ -27,11 +27,11 @@ def get_product_by_location(location):
 
     return products
 
-def get_product_summary(product_name):
+def get_location_by_product(product_name):
     conn = get_db_connection()
     cursor = conn.cursor()
 
-    rows = cursor.execute(GET_PRODUCT_SUMMARY, (product_name,))
+    rows = cursor.execute(GET_LOCATION_BY_PRODUCT, (product_name,))
 
     products = [
         Product(
