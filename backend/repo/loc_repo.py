@@ -12,8 +12,7 @@ def get_locations():
         Location(row[0], row[1], row[2], row[3])
         for row in rows
     ]
-    print(locations)
-
+    
     cursor.close()
     conn.close()
 
