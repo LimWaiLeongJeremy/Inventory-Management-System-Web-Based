@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
 
-from services.prod_svc import get_all_product_by_location
+from services.prod_svc import get_all_product_by_location, get_all_product_summary
 
 
 # ========== Create blueprint ==========
@@ -20,31 +20,16 @@ def getProdByLoc(location_name):
         'data': products
     }), 200
 
-# # @product_bp.route('/api/product/summary', methods=['GET'])
-# # def getProdSum():
-# #     product_summary = {}
 
-# #     for loc in location:
-# #         for product in loc['product']:
-# #             product_id = product['product_id']
+@product_bp.route('/api/product/<string:product_name>/summary', methods=['GET'])
+def getProdSum(product_name):
+    products = get_all_product_summary(product_name)
 
-# #             if product_id not in product_summary:
-# #                 product_summary[product_id] = {
-# #                     'product_id': product['product_id'],
-# #                     'sku': product['sku'],
-# #                     'name': product['name'],
-# #                     'category': product['category'],
-# #                     'unit': 0,
-# #                     'reorder_level': product['reorder_level'],
-# #                     'is_activve': product['is_active'],
-# #                     'create_at': product['create_at']
-# #                 }
-# #             product_summary[product_id]['unit'] += product['unit']
-
-# #     return jsonify({
-# #         'status': 'success',
-# #         'products': list(product_summary.values())
-# #     }), 200
+    return jsonify({
+        'status': "success",
+        'product name': product_name,
+        'data': products
+    }), 200
 
 # # @product_bp.route('/api/products/<string:product_id>/locations', methods=['GET'])
 # # def getProLoc(product_id):
