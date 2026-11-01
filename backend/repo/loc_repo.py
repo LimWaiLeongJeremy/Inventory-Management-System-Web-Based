@@ -9,10 +9,15 @@ def get_locations():
     rows = cursor.execute(GET_LOCATIONS)
 
     locations = [
-        Location(row[0], row[1], row[2], row[3])
+        Location(
+            id = row[0], 
+            code = row[1], 
+            name = row[2], 
+            is_active = row[3]
+        )
         for row in rows
     ]
-    
+
     cursor.close()
     conn.close()
 
