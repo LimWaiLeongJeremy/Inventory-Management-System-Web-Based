@@ -6,6 +6,5 @@ def get_product_by_location_svc(location):
 
 def get_location_by_product_svc(product_name):
     result = get_location_by_product_repo(product_name)
-    print("here")
     return result
 
