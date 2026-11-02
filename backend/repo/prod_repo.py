@@ -11,7 +11,6 @@ def get_product_by_location(location):
     products = [
         Product(
             location = row[0], 
-            sku = row[1], 
             barcode = row[2],
             name = row[3], 
             category = row[4], 
