@@ -2,7 +2,7 @@ from database.db import get_db_connection
 from .query.loc_qry import GET_LOCATIONS
 from models.loc_model import Location
 
-def get_locations():
+def get_locations_repo():
     conn = get_db_connection()
     cursor = conn.cursor()
 
