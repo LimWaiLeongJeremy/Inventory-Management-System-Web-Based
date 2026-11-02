@@ -1,7 +1,6 @@
 from flask import Blueprint, jsonify
 
-from services.prod_svc import get_all_product_by_location, get_all_product_summary
-
+from services.prod_svc import get_all_product_by_location, get_all_location_by_product
 
 # ========== Create blueprint ==========
 product_bp = Blueprint("product", __name__)
@@ -23,7 +22,7 @@ def getProdByLoc(location_name):
 
 @product_bp.route('/api/product/<string:product_name>/summary', methods=['GET'])
 def getLocByProd(product_name):
-    products = get_all_product_summary(product_name)
+    products = get_all_location_by_product(product_name)
 
     return jsonify({
         'status': "success",
