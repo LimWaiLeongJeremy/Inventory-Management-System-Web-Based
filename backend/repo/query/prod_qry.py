@@ -1,7 +1,8 @@
 GET_PRODUCT_BY_LOCATION = """
     SELECT 
         l.name location, 
-        p.barcode,
+        p.sku, 
+        p.barcode, 
         p.name, 
         p.category, 
         p.unit, 

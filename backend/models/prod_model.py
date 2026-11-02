@@ -3,6 +3,7 @@ from dataclasses import dataclass, asdict
 @dataclass
 class Product:
     location: str
+    sku: str
     barcode: str
     name: str
     category: str

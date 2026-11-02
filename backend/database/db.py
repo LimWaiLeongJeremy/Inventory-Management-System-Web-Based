@@ -2,5 +2,5 @@ import psycopg
 from config import Config
 
 def get_db_connection():
-    conn = psycopg.connect(Config.DATABASE_URL.replace("+psycopg", "", 1))
+    conn = psycopg.connect(Config.DATABASE_URL)
     return conn
