@@ -11,12 +11,12 @@ def get_product_by_location(location):
     products = [
         Product(
             location = row[0], 
-            barcode = row[2],
-            name = row[3], 
-            category = row[4], 
-            unit = row[5], 
-            reorder_level = row[6], 
-            quantity = row[7]
+            barcode = row[1],
+            name = row[2], 
+            category = row[3], 
+            unit = row[4], 
+            reorder_level = row[5], 
+            quantity = row[6]
         )
         for row in rows
     ]
@@ -35,13 +35,12 @@ def get_location_by_product(product_name):
     products = [
         Product(
             location = row[0], 
-            sku = row[1], 
-            barcode = row[2],
-            name = row[3], 
-            category = row[4], 
-            unit = row[5], 
-            reorder_level = row[6], 
-            quantity = row[7]
+            barcode = row[1],
+            name = row[2], 
+            category = row[3], 
+            unit = row[4], 
+            reorder_level = row[5], 
+            quantity = row[6]
         )
         for row in rows
     ]
