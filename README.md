@@ -123,21 +123,17 @@ Currently, companies manually record production inventory, leading to inefficien
 ```
 inventory-management-system/
 │
-├── backend/              # Server-side code
-│   ├── api/             # API endpoints
-│   ├── models/          # Database models
-│   ├── controllers/     # Business logic
-│   └── config/          # Configuration files
-│
-├── frontend/            # Client-side code
-│   ├── assets/          # Images, CSS, JS
-│   ├── views/           # HTML templates
-│   └── components/      # Reusable UI components
-│
-├── database/            # Database scripts
-│   ├── schema.py        # Database structure
-│   ├── query.py         # Database query
-│   └── seed.sql         # Sample data
+├── backend/                # Server-side code
+│   ├── controllers/        # API endpoints
+│   ├── models/             # Database models
+│   ├── services/           # Business logic
+│   ├── repo/               # Database logic and querys
+|   |   └── query/          # Querys
+│   ├── templates/          # Frontend
+│   ├── database/           # Database configuration files
+│   ├── app.py              # Initilization of python app
+│   ├── config.py           # Database connection configuration
+│   └── requirments.txt     # Dependencies requirement file
 │
 ├── docs/                # Documentation
 │   ├── requirements.md  # Project requirements
