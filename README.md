@@ -205,17 +205,20 @@ cp .env.example .env
 
 ## 🗺️ Roadmap
 
-### Phase 1 (Weeks 1-5) - Foundation ✅
+### Phase 1 (Weeks 1-2) - Foundation ✅
 - [x] Requirements gathering
-- [x] Database design
-- [ ] Setup Dev Env
-- [ ] UI/UX mockups
+- [x] Setup repository
+- [x] Setup Dev Env
+- [x] UI/UX mockups
+- [x] Setup DB
 
-### Phase 2 (Weeks 6-11) - Development 🚧
-- [ ] Backend API development
+
+### Phase 2 (Weeks 3-11) - Development 🚧
+- [x] working DB
+- [x] Backend API development
+- [ ] Authentication API
 - [ ] Frontend implementation
 - [ ] Core features integration
-- [ ] Reporting module
 
 ### Phase 3 (Weeks 12-14) - Testing 📝
 - [ ] Unit & integration testing
