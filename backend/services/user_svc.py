@@ -1,4 +1,5 @@
-from bcrypt import hashpw, gensalt
+from bcrypt import hashpw, gensalt, checkpw
+from flask_jwt_extended import create_access_token
 
 
 cred = {
@@ -44,3 +45,18 @@ def user_create_svc(username, password):
         raise 
     
 
+    
+def user_auth_svc(username, password):
+    # TODO
+    # qry db for use details
+
+    # Check if user exists
+    if cred["username"] == username:
+        if checkpw(password.encode('utf-8'), cred['password']):
+            access_token = create_access_token(
+                                identity = cred['id'],
+                                additional_claims={"role": cred['role']}
+            )
+            return True, access_token
+        return False, "Invalid credentials"
+    return False, "Invalid credentials"
