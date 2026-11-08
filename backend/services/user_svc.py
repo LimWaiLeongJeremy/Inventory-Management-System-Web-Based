@@ -1,22 +1,17 @@
 from bcrypt import hashpw, gensalt, checkpw
 from flask_jwt_extended import create_access_token
+from repo.user_repo import ist_usr_repo
 
 
-cred = {
-
-    "id": "0",
-    "username": "",
-    "password": "",
-    "role": "",
-}
-
-
-def user_create_svc(username, password):
+def user_create_svc(username, fullname, password, role):
 
     # Validate if user in DB
-    if cred["username"]:
-        # if user exist, return "user exist"
-        return False, "User already registered"   
+    # TODO 
+    # velidate user in db
+
+    # if cred["username"]:
+    #     # if user exist, return "user exist"
+    #     return False, "User already registered"   
 
     # Encrypt the password
     # Using bcrypt to hash the password
@@ -26,19 +21,18 @@ def user_create_svc(username, password):
                         gensalt()
     )
 
-    # TODO
-    # ist to db
     try:
-        # If username don't exist, insert user with hash pw
-        cred["username"] = username
-        cred["password"] = hashed_password
-        cred["role"] = "admin"
-        
-        return True, {
-            "id": cred["id"],
-            "username": cred["username"],
-            "role": cred["role"]
-        }
+        status, result = ist_usr_repo(
+            username, 
+            fullname, 
+            hashed_password, 
+            role
+        )
+        if status:
+            return True, {
+                "employee_id": result
+            }
+
     # Raise exception if user creation failed
     except Exception:
         print("Failed to create user")
