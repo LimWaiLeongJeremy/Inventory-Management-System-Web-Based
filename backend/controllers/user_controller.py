@@ -9,7 +9,6 @@ user_bp = Blueprint("auth", __name__)
 # User API
 @user_bp.route('/api/user/create', methods=['POST'])
 def user_create_api():
-
     # get data from body
     data = request.get_json()  
 
@@ -24,8 +23,7 @@ def user_create_api():
     password = data.get('password', "")
     fullname = data.get('fullname', "")
     role = data.get('role', "")
-    print("controler")
-    print(data)
+
     # validate json value
     if not isinstance(username, str) or not username:
         return jsonify({

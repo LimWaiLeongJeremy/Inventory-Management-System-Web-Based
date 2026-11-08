@@ -10,7 +10,6 @@ def ist_usr_repo(
     role
     ):
 
-    print("usr_repo")
     conn = get_db_connection()
     try:
         cursor = conn.cursor()
