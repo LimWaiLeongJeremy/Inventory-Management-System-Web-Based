@@ -1,4 +1,4 @@
-IST_USER_QRY = """
+IST_USR_QRY = """
     INSERT INTO users (
         username, 
         full_name, 
@@ -8,11 +8,13 @@ IST_USER_QRY = """
         role
     ) 
     VALUES (
-        %s,     #username
-        %s,     #fullname
-        %s,     #hashed Password
-        %s,     #is_active
-        %s,     #created_at
-        %s      #role
-    );
+        %s,     
+        %s,     
+        %s,     
+        %s,     
+        %s,     
+        %s      
+    )
+    RETURNING 
+        id;
 """
