@@ -19,11 +19,13 @@ def user_create_api():
             "status": "error",
             "data": "Invalid or missing JSON data"
         }), 400
-
-    # data sanitization
+    # retriving datas
     username = data.get('username', "")
     password = data.get('password', "")
-    
+    fullname = data.get('fullname', "")
+    role = data.get('role', "")
+    print("controler")
+    print(data)
     # validate json value
     if not isinstance(username, str) or not username:
         return jsonify({
@@ -31,7 +33,6 @@ def user_create_api():
             "data": "Username cannot be empty"
         }), 400
     
-    username = username.strip().lower()
 
     if not isinstance(password, str) or not password:
         return jsonify({
@@ -39,10 +40,13 @@ def user_create_api():
             "data": "Password cannot be empty"
         }), 400
 
+    # data sanitization
+    username = username.strip().lower()
+    role = role.strip().lower()
+
     # Try to create user 
     try:
-        success, result = user_create_svc(username, password)
-        
+        success, result = user_create_svc(username, fullname, password, role)
         if not success:
             return jsonify({
                 "status": "error",
