@@ -16,8 +16,6 @@ def get_product_by_location_svc(location):
     
 
 def get_location_by_product_svc(product_name):
-    return result
-
     try:
         status, result = get_location_by_product_repo(product_name)
         # Check if data exists
