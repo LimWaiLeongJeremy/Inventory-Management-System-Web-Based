@@ -23,7 +23,7 @@ def getAllLoc():
 
         return jsonify({
             "status": "success",
-            "locations": locations
+            "locations": [loc.to_dict() for loc in locations]
         }), 200
 
     except Exception:
