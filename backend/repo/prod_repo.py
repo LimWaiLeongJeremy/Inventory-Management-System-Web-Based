@@ -26,7 +26,7 @@ def get_product_by_location_repo(location):
             ]
 
             conn.commit()
-            return products
+            return True, products
         finally:
             cursor.close()
     except Exception:
@@ -58,7 +58,7 @@ def get_location_by_product_repo(product_name):
             ]
 
             conn.commit()
-            return products
+            return True, products
         finally:
             cursor.close()
     except Exception:
