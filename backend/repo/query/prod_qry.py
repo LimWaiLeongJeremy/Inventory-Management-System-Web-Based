@@ -1,12 +1,8 @@
 GET_PRODUCT_BY_LOCATION = """
     SELECT 
-        l.name location, 
-        p.barcode,
-        p.name, 
-        p.category, 
-        p.unit, 
-        p.reorder_level, 
+        p.*, 
         s.quantity 
+        l.name location, 
     FROM 
         locations l, 
         stock_levels s, 
@@ -21,13 +17,9 @@ GET_PRODUCT_BY_LOCATION = """
 
 GET_LOCATION_BY_PRODUCT = """
     SELECT 
-        l.name location, 
-        p.barcode, 
-        p.name, 
-        p.category, 
-        p.unit, 
-        p.reorder_level, 
+        p.*, 
         s.quantity
+        l.name location, 
     FROM 
         locations l, 
         stock_levels s, 
