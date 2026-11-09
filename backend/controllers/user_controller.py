@@ -1,3 +1,5 @@
+import traceback
+
 from flask import Blueprint, jsonify, request
 from flask_jwt_extended import jwt_required, get_jwt
 from services.user_svc import user_auth_svc, user_create_svc
@@ -74,7 +76,6 @@ def user_create_api():
         }), 200   
 
     except Exception:
-        import traceback
         traceback.print_exc()
 
         return jsonify({
@@ -86,9 +87,6 @@ def user_create_api():
 
 @user_bp.route('/api/user/login', methods=['POST'])
 def user_login_api():
-
-# TODO
-# look into modulize of data sanitization
     # get data from body
     data = request.get_json()  
 
@@ -140,10 +138,8 @@ def user_login_api():
             "token": result
         }), 200   
 
-# TODO 
-# print all trace back like this
+
     except Exception:
-        import traceback
         traceback.print_exc()
 
         return jsonify({
