@@ -21,7 +21,7 @@ def get_locations_repo():
             ]
 
             conn.commit()
-            return locations
+            return True, locations
         finally:
             cursor.close()
     except Exception:
