@@ -54,7 +54,7 @@ def user_auth_svc(username, password):
         if checkpw(password.encode('utf-8'), result['password_hash'].encode('utf-8')):
             # Create token
             access_token = create_access_token(
-                                identity = result['id'],
+                                identity = str(result['id']),
                                 additional_claims={"role": result['role']}
             )
 
