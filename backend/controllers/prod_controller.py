@@ -49,7 +49,7 @@ def get_prod_by_loc_api(location_name):
 def get_loc_by_prod_api(product_name):
     # Check for access 
     claims = get_jwt()
-    if claims.get("role") != "admin":
+    if claims.get("role") == "user":
         return jsonify({
             "status": "error",
             "data": "Forbidden"
