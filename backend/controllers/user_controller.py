@@ -8,8 +8,8 @@ user_bp = Blueprint("auth", __name__)
 
 
 # User API
-@jwt_required
 @user_bp.route('/api/user/create', methods=['POST'])
+@jwt_required()
 def user_create_api():
     # Check for access 
     claims = get_jwt()
@@ -18,6 +18,7 @@ def user_create_api():
             "status": "error",
             "data": "Forbidden"
         }), 403
+        
     # get data from body
     data = request.get_json()  
 
