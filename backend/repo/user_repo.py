@@ -1,7 +1,9 @@
+import traceback
+
 from database.db import get_db_connection
 from .query.user_qry import IST_USR_QRY, SEL_USR_BY_NAME
 from datetime import datetime
-# from models.user_model import User
+from models.user_model import User
 
 def ist_usr_repo(
     username, 
@@ -29,6 +31,7 @@ def ist_usr_repo(
             cursor.close()
     except Exception:
         conn.rollback()
+        traceback.print_exc()
         raise
     finally:    
         conn.close()
@@ -49,8 +52,9 @@ def get_user_by_username(
             if row is None:
                 return False, None
 
+            # Setting User model
             columns = [desc[0] for desc in cursor.description]
-            user = dict(zip(columns, row))
+            user = User.from_row(columns, row)
 
             conn.commit()
             return True, user
@@ -58,6 +62,7 @@ def get_user_by_username(
             cursor.close()
     except Exception:
         conn.rollback()
+        traceback.print_exc()
         raise
     finally:    
         conn.close()
