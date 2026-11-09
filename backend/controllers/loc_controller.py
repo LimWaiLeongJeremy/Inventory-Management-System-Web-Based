@@ -1,3 +1,4 @@
+import traceback 
 from flask import Blueprint, jsonify
 
 from services.loc_svc import get_locations_svc
