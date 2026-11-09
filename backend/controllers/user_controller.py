@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify, request
+from flask_jwt_extended import jwt_required, get_jwt
 from services.user_svc import user_auth_svc, user_create_svc
  
 
@@ -7,10 +8,16 @@ user_bp = Blueprint("auth", __name__)
 
 
 # User API
-# TODO
-# only let admin create user
+@jwt_required
 @user_bp.route('/api/user/create', methods=['POST'])
 def user_create_api():
+    # Check for access 
+    claims = get_jwt()
+    if claims.get("role") != "admin":
+        return jsonify({
+            "status": "error",
+            "data": "Forbidden"
+        }), 403
     # get data from body
     data = request.get_json()  
 
