@@ -30,7 +30,7 @@ def get_prod_by_loc_api(location_name):
         return jsonify({
             'status': "success",
             'location': location_name,
-            'products': products
+            'products': [prod.to_dict() for prod in products]
         }), 200
 
     except Exception:
@@ -62,7 +62,7 @@ def get_loc_by_prod_api(product_name):
         return jsonify({
             'status': "success",
             'product name': product_name,
-            'products': products
+            'products': [prod.to_dict() for prod in products]
         }), 200
 
     except Exception:
