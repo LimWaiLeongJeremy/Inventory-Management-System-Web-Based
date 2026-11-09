@@ -11,14 +11,7 @@ product_bp = Blueprint("product", __name__)
 
 # product api
 @product_bp.route('/api/locations/<string:location_name>/products', methods=['GET'])
-def get_prod_by_loc_api(location_name):
-    # Validate if body has content
-    if data is None:
-        return jsonify({
-            "status": "error",
-            "data": "Invalid or missing JSON data"
-        }), 400
-    
+def get_prod_by_loc_api(location_name):    
     # validate json value
     if not isinstance(location_name, str) or not location_name:
         return jsonify({
@@ -51,13 +44,6 @@ def get_prod_by_loc_api(location_name):
 
 @product_bp.route('/api/product/<string:product_name>/summary', methods=['GET'])
 def get_loc_by_prod_api(product_name):
-    # Validate if body has content
-    if data is None:
-        return jsonify({
-            "status": "error",
-            "data": "Invalid or missing JSON data"
-        }), 400
-    
     # validate json value
     if not isinstance(product_name, str) or not product_name:
         return jsonify({
