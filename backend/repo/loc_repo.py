@@ -1,3 +1,5 @@
+import traceback
+
 from database.db import get_db_connection
 from .query.loc_qry import GET_LOCATIONS
 from models.loc_model import Location
@@ -8,17 +10,11 @@ def get_locations_repo():
     try:
         cursor = conn.cursor()
         try:
-            rows = cursor.execute(GET_LOCATIONS)
+            rows = cursor.execute(GET_LOCATIONS).fetchall()
 
-            locations = [
-                Location(
-                    id = row[0], 
-                    code = row[1], 
-                    name = row[2], 
-                    is_active = row[3]
-                )
-                for row in rows
-            ]
+            # Setting model
+            columns = [desc[0] for desc in cursor.description]
+            locations = [Location.from_row(columns, row) for row in rows]
 
             conn.commit()
             return True, locations
