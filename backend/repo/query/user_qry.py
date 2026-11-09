@@ -18,3 +18,12 @@ IST_USR_QRY = """
     RETURNING 
         id;
 """
+
+SEL_USR_BY_NAME = """
+    SELECT 
+        * 
+    FROM 
+        users 
+    WHERE 
+        username = %s;  
+"""
