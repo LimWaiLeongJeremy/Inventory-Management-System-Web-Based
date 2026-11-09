@@ -7,6 +7,8 @@ user_bp = Blueprint("auth", __name__)
 
 
 # User API
+# TODO
+# only let admin create user
 @user_bp.route('/api/user/create', methods=['POST'])
 def user_create_api():
     # get data from body
@@ -18,6 +20,7 @@ def user_create_api():
             "status": "error",
             "data": "Invalid or missing JSON data"
         }), 400
+        
     # retriving datas
     username = data.get('username', "")
     password = data.get('password', "")
@@ -36,6 +39,12 @@ def user_create_api():
         return jsonify({
             "status": "error",
             "data": "Password cannot be empty"
+        }), 400
+
+    if len(password) < 8:
+        return jsonify({
+            "status": "error",
+            "data": "Password must be at least 8 characters"
         }), 400
 
     # data sanitization
@@ -70,6 +79,8 @@ def user_create_api():
 @user_bp.route('/api/user/login', methods=['POST'])
 def user_login_api():
 
+# TODO
+# look into modulize of data sanitization
     # get data from body
     data = request.get_json()  
 
@@ -80,10 +91,10 @@ def user_login_api():
             "data": "Invalid or missing JSON data"
         }), 400
 
-    # data sanitization
+    # retriving datas
     username = data.get('username', "")
     password = data.get('password', "")
-    
+
     # validate json value
     if not isinstance(username, str) or not username:
         return jsonify({
@@ -91,29 +102,44 @@ def user_login_api():
             "data": "Username cannot be empty"
         }), 400
     
-    username = username.strip().lower()
 
     if not isinstance(password, str) or not password:
         return jsonify({
             "status": "error",
             "data": "Password cannot be empty"
         }), 400
-    
-    # call and parse user cred to auth_service
-    # instantiat auth stauts and result 
-    is_auth, result = user_auth_svc(username, password)
 
-    if not is_auth:
-        status_code = 400 if "required" in result else 401
-
-        # return an eroor with the reason 
+    if len(password) < 8:
         return jsonify({
             "status": "error",
-            "message": result
-        }), status_code
+            "data": "Password must be at least 8 characters"
+        }), 400
 
-    # return status and result
-    return jsonify({
-        "status": "success",
-        "data": result
-    }), 200
+    # data sanitization
+    username = username.strip().lower()
+
+ # Try to create user 
+    try:
+        success, result = user_auth_svc(username, password)
+        if not success:
+            return jsonify({
+                "status": "error",
+                "data": result
+            }),409
+            
+        return jsonify({
+            "status": "success",
+            "token": result
+        }), 200   
+
+# TODO 
+# print all trace back like this
+    except Exception:
+        import traceback
+        traceback.print_exc()
+
+        return jsonify({
+            "status": "error",
+            "data": "Internal server error"
+        }), 500
+
