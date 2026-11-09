@@ -1,8 +1,8 @@
 GET_PRODUCT_BY_LOCATION = """
     SELECT 
         p.*, 
-        s.quantity 
-        l.name location, 
+        s.quantity, 
+        l.name location
     FROM 
         locations l, 
         stock_levels s, 
@@ -18,8 +18,8 @@ GET_PRODUCT_BY_LOCATION = """
 GET_LOCATION_BY_PRODUCT = """
     SELECT 
         p.*, 
-        s.quantity
-        l.name location, 
+        s.quantity,
+        l.name location
     FROM 
         locations l, 
         stock_levels s, 

@@ -10,7 +10,7 @@ class Product:
     unit: str
     reorder_level: int
     created_at: datetime
-    rerstock_at: datetime
+    restock_at: datetime
     quantity: int
     location: str
 
