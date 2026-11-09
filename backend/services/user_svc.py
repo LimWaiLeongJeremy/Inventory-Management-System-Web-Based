@@ -1,3 +1,5 @@
+import traceback
+
 from bcrypt import hashpw, gensalt, checkpw
 from flask_jwt_extended import create_access_token
 from repo.user_repo import ist_usr_repo, get_user_by_username
@@ -37,7 +39,7 @@ def user_create_svc(username, fullname, password, role):
 
        # Raise exception if user creation failed
     except Exception:
-        print("Failed to create user")
+        traceback.print_exc()
         raise 
 
     
@@ -54,16 +56,16 @@ def user_auth_svc(username, password):
             return False, "Invalid credentials"
 
         # Check if password match
-        if checkpw(password.encode('utf-8'), result['password_hash'].encode('utf-8')):
+        if checkpw(password.encode('utf-8'), result.password_hash.encode('utf-8')):
             # Create token
             access_token = create_access_token(
-                                identity = str(result['id']),
-                                additional_claims={"role": result['role']}
+                                identity = str(result.id),
+                                additional_claims={"role": result.role}
             )
 
             return True, access_token
 
        # Raise exception if user creation failed
     except Exception:
-        print("Failed to find user")
+        traceback.print_exc()
         raise 
