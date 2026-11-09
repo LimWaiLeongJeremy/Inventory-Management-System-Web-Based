@@ -1,7 +1,6 @@
 from repo.loc_repo import get_locations_repo
 
 def get_locations_svc():
-    return result
     try:
         status, result = get_locations_repo()
         # Check if data exists
