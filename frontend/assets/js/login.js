@@ -1,5 +1,5 @@
 // ========== Config ==========
-const API_BASE_URL = "http://127.0.0.1:5000";
+const API_BASE_URL = ""; 
 const TOKEN_KEY = "access_token";
 
 //  Elements 
@@ -8,8 +8,9 @@ const usernameInput = document.getElementById("username");
 const passwordInput = document.getElementById("password");
 const rememberInput = document.getElementById("remember");
 const toggleBtn = document.getElementById("togglePassword");
+const eyeIcon = toggleBtn.querySelector("img");
 const loginBtn = document.getElementById("loginBtn");
-const btnLabel = loginBtn.querySelector(".btn-label");
+const btnLabel = loginBtn.querySelector("span");
 const message = document.getElementById("formMessage");
 
 
@@ -44,7 +45,7 @@ function saveToken(token, remember) {
 toggleBtn.addEventListener("click", () => {
   const isHidden = passwordInput.type === "password";
   passwordInput.type = isHidden ? "text" : "password";
-  toggleBtn.setAttribute("aria-pressed", String(isHidden));
+  eyeIcon.src = isHidden ? "assets/icons/eye-off.svg" : "assets/icons/eye.svg";
   toggleBtn.setAttribute("aria-label", isHidden ? "Hide password" : "Show password");
 });
 
