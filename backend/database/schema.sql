@@ -178,7 +178,7 @@ ALTER TABLE public.transactions    ENABLE ROW LEVEL SECURITY;
 -- ---------------------------------------------------------------------------
 INSERT INTO public.users (username, full_name, password_hash, role, must_change_password)
 VALUES ('admin', 'Administrator',
-        'scrypt:32768:8:1$8s6ROMcajfQfx926$733364074d11a1ac5c3256b185aaa43c8e751a72102f9a58a6f68df01ad52fef6f74e591909c54cc00b933f29881ba46fa8073f396f76576b86078910d1875f0',
+        '$2b$12$rhqnWM4tItNkz3nGuG9U1.TnWTmxFyxaDLgcr4RBa0DOnfLxX9to2',   -- bcrypt, same as the login check
         'admin', true)
 ON CONFLICT (username) DO NOTHING;
 
