@@ -1,3 +1,11 @@
+/* Inter font, stored in assets/fonts (one file covers weights 400-700) */
+@font-face {
+  font-family: "Inter";
+  src: url("../fonts/inter.woff2") format("woff2");
+  font-weight: 400 700;
+  font-display: swap;
+}
+
 /* Design tokens */
 :root {
   --bg: #f6f7f9;
@@ -27,14 +35,6 @@ body {
 }
 
 p { margin: 0; }
-
-svg {
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
 
 /* Layout */
 .page {
@@ -124,14 +124,14 @@ h1 {
 
 form { margin-top: 28px; }
 
-.field + .field { margin-top: 20px; }
-
 label {
   display: block;
   margin-bottom: 8px;
   font-size: 14px;
   font-weight: 500;
 }
+
+.input-wrap + label { margin-top: 20px; }
 
 .input-wrap {
   position: relative;
@@ -144,7 +144,6 @@ label {
   width: 18px;
   height: 18px;
   transform: translateY(-50%);
-  color: var(--text-muted);
   pointer-events: none;
 }
 
@@ -183,17 +182,13 @@ label {
   border: 0;
   border-radius: 4px;
   background: none;
-  color: var(--text-muted);
   cursor: pointer;
   transform: translateY(-50%);
 }
 
-.icon-btn:hover { color: var(--text); }
+.icon-btn:hover img { filter: brightness(.35); } /* darken the grey icon on hover */
 .icon-btn:focus-visible { outline: 2px solid var(--primary); }
-.icon-btn svg { width: 18px; height: 18px; }
-.icon-btn .eye-closed { display: none; }
-.icon-btn[aria-pressed="true"] .eye-open { display: none; }
-.icon-btn[aria-pressed="true"] .eye-closed { display: block; }
+.icon-btn img { width: 18px; height: 18px; }
 
 /*Remember me / forgot */
 .row {
@@ -269,7 +264,7 @@ label {
 .btn-primary:hover { background: var(--primary-hover); }
 .btn-primary:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
 .btn-primary:disabled { opacity: .7; cursor: progress; }
-.btn-arrow { width: 18px; height: 18px; }
+.btn-primary img { width: 18px; height: 18px; }
 
 /* Notice */
 .notice {
@@ -283,7 +278,7 @@ label {
   line-height: 1.6;
 }
 
-.notice svg {
+.notice img {
   width: 15px;
   height: 15px;
   flex-shrink: 0;
