@@ -1,7 +1,6 @@
 import os
 
 from flask import Flask, redirect
-from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 
 from controllers.loc_controller import  location_bp
@@ -14,7 +13,6 @@ FRONTEND_DIR = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__fi
 # Flask serves the whole frontend folder from the site root,
 # e.g. /login.html and /assets/css/login.css
 app = Flask(__name__, static_folder=FRONTEND_DIR, static_url_path="")
-CORS(app)
 app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY")
 
 # Initialize JWT with the main app
