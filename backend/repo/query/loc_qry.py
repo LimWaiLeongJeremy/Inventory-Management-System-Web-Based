@@ -1,4 +1,4 @@
-GET_LOCATIONS = """
+GET_ALL_LOCATIONS = """
     SELECT 
         l.id,
         l.code location_code, 
@@ -20,6 +20,30 @@ GET_LOCATIONS = """
         l.id, l.name, l.code, l.address
     ORDER BY 
         l.code
+    ;
+"""
+GET_LOC_EXIST = """
+    SELECT EXISTS (
+        SELECT 
+            1
+        FROM 
+            locations
+        WHERE 
+            code = %s
+    ) AS location_exists;
+"""
+
+GET_ZONE_BY_LOC = """
+    SELECT
+        DISTINCT z.code zone,
+        l.code location
+    FROM
+        locations l,
+        zones z
+    WHERE
+        l.id = z.location_id
+    AND
+        l.code = %s
     ;
 """
 
