@@ -31,3 +31,20 @@ GET_LOCATION_BY_PRODUCT = """
     AND 
         p.name ILIKE %s;
 """
+
+GET_ALL_BINS = """
+    SELECT 
+        l.name location, 
+        l.code location_code, 
+        z.code zone, 
+        b.id bins
+    FROM 
+        locations l,
+        zones z,
+        bins b
+    WHERE 
+        l.id = z.location_id
+    AND
+        z.id = b.zone_id
+    ;
+"""
