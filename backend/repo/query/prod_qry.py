@@ -37,7 +37,7 @@ GET_ALL_BINS = """
         l.name location, 
         l.code location_code, 
         z.code zone, 
-        b.id bins
+        b.id bin_id
     FROM 
         locations l,
         zones z,
@@ -54,7 +54,7 @@ GET_ALL_BINS_BY_LOCATION = """
         l.name location, 
         l.code location_code, 
         z.code zone, 
-        b.id bins
+        b.id bin_id
     FROM 
         locations l,
         zones z,
