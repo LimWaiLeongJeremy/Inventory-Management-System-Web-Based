@@ -19,3 +19,19 @@ class Location:
         
     def to_dict(self):
         return asdict(self)
+
+
+
+@dataclass
+class Zone:
+    zone: str
+    location: str
+
+
+    # Method to set data from db to model
+    @classmethod
+    def from_row(cls, columns, row):
+        return cls(**dict(zip(columns, row)))
+        
+    def to_dict(self):
+        return asdict(self)
