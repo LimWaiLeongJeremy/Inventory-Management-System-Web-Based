@@ -3,11 +3,14 @@ from dataclasses import dataclass, asdict
 @dataclass
 class Location:
     id: int
-    code: str
+    location_code: str
     name: str
     is_active: bool
     description: str
     address: str
+    zone_count: int
+    bin_count: int
+
 
     # Method to set data from db to model
     @classmethod
