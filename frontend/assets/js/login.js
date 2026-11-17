@@ -1,6 +1,7 @@
 // ========== Config ==========
 const API_BASE_URL = ""; 
 const TOKEN_KEY = "access_token";
+const DASHBOARD_URL = "/dashboard";
 
 //  Elements 
 const form = document.getElementById("loginForm");
@@ -84,6 +85,7 @@ form.addEventListener("submit", async (e) => {
   }
 
   setLoading(true);
+  let loggedIn = false;
 
   try {
     const response = await fetch(`${API_BASE_URL}/api/user/login`, {
@@ -101,12 +103,16 @@ form.addEventListener("submit", async (e) => {
     }
 
     saveToken(result.token, rememberInput.checked);
-    showMessage("Logged in successfully.", "info");
+
+    // Go to dashboard replace() so the back button does not return to the login form, 
+    loggedIn = true;
+    window.location.replace(DASHBOARD_URL);
 
   } catch (err) {
     console.error(err);
     showMessage("Cannot reach the server. Please check that the backend is running.");
   } finally {
-    setLoading(false);
+    // keep the button in "Logging in…" while the dashboard loads
+    if (!loggedIn) setLoading(false);
   }
 });
