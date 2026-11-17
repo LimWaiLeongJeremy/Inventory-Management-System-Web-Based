@@ -31,10 +31,5 @@ app.register_blueprint(user_bp)
 app.register_blueprint(route_bp)
 
 
-@app.route("/")
-def home():
-    return redirect("/login.html")
-
-
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
