@@ -132,6 +132,7 @@ def user_login_api():
                 "data": result
             }), 401
             
+        # Set user session
         session["user_id"] = result["user_id"]
 
         return jsonify({
