@@ -19,6 +19,7 @@ app = Flask(
     static_url_path=""
 )
 app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY")
+app.config["SECRET_KEY"] = os.getenv("JWT_SECRET_KEY")
 
 # Initialize JWT with the main app
 jwt = JWTManager()

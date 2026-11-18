@@ -1,6 +1,6 @@
 import traceback
 
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, session
 from flask_jwt_extended import jwt_required, get_jwt
 from services.user_svc import user_auth_svc, user_create_svc
  
@@ -132,6 +132,8 @@ def user_login_api():
                 "data": result
             }), 401
             
+        session["user_id"] = result["user_id"]
+
         return jsonify({
             "status": "success",
             "data": result
