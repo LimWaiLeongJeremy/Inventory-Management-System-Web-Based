@@ -41,7 +41,6 @@ function saveToken(token, remember) {
   (remember ? localStorage : sessionStorage).setItem(TOKEN_KEY, token);
 }
 
-
 //Show / hide password
 toggleBtn.addEventListener("click", () => {
   const isHidden = passwordInput.type === "password";
@@ -93,17 +92,16 @@ form.addEventListener("submit", async (e) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password }),
     });
-
     const result = await response.json().catch(() => ({}));
-
+    
     if (!response.ok || result.status !== "success") {
       passwordInput.value = "";
       passwordInput.focus();
       return showMessage(result.data || "Login failed. Please try again.");
     }
-
-    saveToken(result.token, rememberInput.checked);
-
+    
+    saveToken(result.data.access_token, rememberInput.checked);
+    
     // Go to dashboard replace() so the back button does not return to the login form, 
     loggedIn = true;
     window.location.replace(DASHBOARD_URL);
