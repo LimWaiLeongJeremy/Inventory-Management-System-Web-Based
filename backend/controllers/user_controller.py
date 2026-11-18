@@ -116,12 +116,6 @@ def user_login_api():
             "data": "Password cannot be empty"
         }), 400
 
-    if not isinstance(remember, bool):
-        return jsonify({
-            "status": "error",
-            "data": "Remember cannot be empty"
-        }), 400
-
 
     if len(password) < 8:
         return jsonify({
@@ -139,7 +133,7 @@ def user_login_api():
                 "status": "error",
                 "data": result
             }), 401
-            
+        print(remember)
         # Set user session
         session.clear()
         session.permanent = remember
