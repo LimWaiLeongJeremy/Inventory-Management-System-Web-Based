@@ -100,6 +100,7 @@ def user_login_api():
     # retriving datas
     username = data.get('username', "")
     password = data.get('password', "")
+    remember = data.get('remember', False)
 
     # validate json value
     if not isinstance(username, str) or not username:
@@ -114,6 +115,13 @@ def user_login_api():
             "status": "error",
             "data": "Password cannot be empty"
         }), 400
+
+    if not isinstance(remember, bool):
+        return jsonify({
+            "status": "error",
+            "data": "Remember cannot be empty"
+        }), 400
+
 
     if len(password) < 8:
         return jsonify({
@@ -133,6 +141,8 @@ def user_login_api():
             }), 401
             
         # Set user session
+        session.clear()
+        session.permanent = remember
         session["user_id"] = result["user_id"]
 
         return jsonify({
