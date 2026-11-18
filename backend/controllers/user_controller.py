@@ -124,7 +124,6 @@ def user_login_api():
     # data sanitization
     username = username.strip().lower()
 
- # Try to create user 
     try:
         success, result = user_auth_svc(username, password)
         if not success:
@@ -135,7 +134,7 @@ def user_login_api():
             
         return jsonify({
             "status": "success",
-            "token": result
+            "data": result
         }), 200   
 
 
