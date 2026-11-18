@@ -73,7 +73,7 @@ def user_auth_svc(username, password):
                             identity = str(result.id),
                             additional_claims={"role": result.role}
         )
-        print(result.id)
+
         user = {
             "user_id": result.id,
             "access_token": access_token
