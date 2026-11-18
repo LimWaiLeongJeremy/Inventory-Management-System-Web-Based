@@ -1,3 +1,4 @@
+from decorators.auth_decorator import require_login
 from flask import Blueprint, render_template
  
 
@@ -11,10 +12,12 @@ route_bp = Blueprint(
 
 # Routing frontend
 @route_bp.route('/')
-def home():
+@route_bp.route('/login')
+def login():
     return render_template("login.html")
 
 # Routing dashboard
 @route_bp.route('/dashboard')
+@require_login
 def dashboard():
     return render_template("dashboard.html")
