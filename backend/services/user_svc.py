@@ -74,7 +74,12 @@ def user_auth_svc(username, password):
                             additional_claims={"role": result.role}
         )
 
-        return True, access_token
+        user = {
+            "user_id": result.id,
+            "access_token": access_token
+        }
+
+        return True, user
 
        # Raise exception if user creation failed
     except Exception:

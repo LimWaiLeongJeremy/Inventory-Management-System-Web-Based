@@ -1,6 +1,6 @@
 import traceback
 
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, session
 from flask_jwt_extended import jwt_required, get_jwt
 from services.user_svc import user_auth_svc, user_create_svc
  
@@ -100,6 +100,7 @@ def user_login_api():
     # retriving datas
     username = data.get('username', "")
     password = data.get('password', "")
+    remember = data.get('remember', False)
 
     # validate json value
     if not isinstance(username, str) or not username:
@@ -115,6 +116,7 @@ def user_login_api():
             "data": "Password cannot be empty"
         }), 400
 
+
     if len(password) < 8:
         return jsonify({
             "status": "error",
@@ -124,7 +126,6 @@ def user_login_api():
     # data sanitization
     username = username.strip().lower()
 
- # Try to create user 
     try:
         success, result = user_auth_svc(username, password)
         if not success:
@@ -132,10 +133,15 @@ def user_login_api():
                 "status": "error",
                 "data": result
             }), 401
-            
+        print(remember)
+        # Set user session
+        session.clear()
+        session.permanent = remember
+        session["user_id"] = result["user_id"]
+
         return jsonify({
             "status": "success",
-            "token": result
+            "data": result
         }), 200   
 
 

@@ -1,6 +1,7 @@
 // ========== Config ==========
 const API_BASE_URL = ""; 
 const TOKEN_KEY = "access_token";
+const DASHBOARD_URL = "/dashboard";
 
 //  Elements 
 const form = document.getElementById("loginForm");
@@ -39,7 +40,6 @@ function saveToken(token, remember) {
   sessionStorage.removeItem(TOKEN_KEY);
   (remember ? localStorage : sessionStorage).setItem(TOKEN_KEY, token);
 }
-
 
 //Show / hide password
 toggleBtn.addEventListener("click", () => {
@@ -84,6 +84,7 @@ form.addEventListener("submit", async (e) => {
   }
 
   setLoading(true);
+  let loggedIn = false;
 
   try {
     const response = await fetch(`${API_BASE_URL}/api/user/login`, {
@@ -91,22 +92,25 @@ form.addEventListener("submit", async (e) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password }),
     });
-
     const result = await response.json().catch(() => ({}));
-
+    
     if (!response.ok || result.status !== "success") {
       passwordInput.value = "";
       passwordInput.focus();
       return showMessage(result.data || "Login failed. Please try again.");
     }
-
-    saveToken(result.token, rememberInput.checked);
-    showMessage("Logged in successfully.", "info");
+    
+    saveToken(result.data.access_token, rememberInput.checked);
+    
+    // Go to dashboard replace() so the back button does not return to the login form, 
+    loggedIn = true;
+    window.location.replace(DASHBOARD_URL);
 
   } catch (err) {
     console.error(err);
     showMessage("Cannot reach the server. Please check that the backend is running.");
   } finally {
-    setLoading(false);
+    // keep the button in "Logging in…" while the dashboard loads
+    if (!loggedIn) setLoading(false);
   }
 });

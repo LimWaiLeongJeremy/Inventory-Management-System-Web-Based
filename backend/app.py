@@ -1,8 +1,9 @@
 import os
 
-from flask import Flask, redirect
+from flask import Flask
 from flask_jwt_extended import JWTManager
 
+from datetime import timedelta
 from controllers.loc_controller import  location_bp
 from controllers.prod_controller import product_bp
 from controllers.user_controller import user_bp
@@ -19,6 +20,8 @@ app = Flask(
     static_url_path=""
 )
 app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY")
+app.config["SECRET_KEY"] = os.getenv("JWT_SECRET_KEY")
+app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(days=30)
 
 # Initialize JWT with the main app
 jwt = JWTManager()
@@ -29,11 +32,6 @@ app.register_blueprint(location_bp)
 app.register_blueprint(product_bp)
 app.register_blueprint(user_bp)
 app.register_blueprint(route_bp)
-
-
-@app.route("/")
-def home():
-    return redirect("/login.html")
 
 
 if __name__ == '__main__':
