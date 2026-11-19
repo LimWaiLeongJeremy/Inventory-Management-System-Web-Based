@@ -1,6 +1,6 @@
 import traceback
 
-from repo.loc_repo import get_all_locations_repo, get_zone_by_loc_repo, get_loc_exist_repo
+from repo.loc_repo import get_all_locations_repo, get_zone_by_loc_repo, get_loc_exist_repo, get_bin_by_zone_repo
 
 def get_locations_svc():
     try:
@@ -42,3 +42,17 @@ def get_zone_by_loc_svc(location_code):
         traceback.print_exc()
         raise     
 
+def get_bin_by_zone_svc(location_code, zone_id):
+    try:
+        status, result = get_bin_by_zone_repo(
+            location_code, 
+            zone_id
+        )
+        # Check if data exists
+        if not result:
+            return False, "could not find bins"
+        return status, result
+    # Raise exception if failed 
+    except Exception:
+        traceback.print_exc()
+        raise
