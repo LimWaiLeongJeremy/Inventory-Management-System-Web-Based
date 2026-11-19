@@ -102,15 +102,17 @@ Currently, companies manually record production inventory, leading to inefficien
 
 ## 📅 Development Timeline
 
-| Phase | Duration | Milestones | Status |
-|-------|----------|-----------|
-| **Planning & Requirements** | Week 1-2 | Requirements gathering, documentation | In Progress |
-| **Design** | Week 3-5 | Database schema, UI/UX mockups | Not Started |
-| **Development** | Week 6-11 | Backend, frontend, core features, reporting | Not Started |
-| **Testing** | Week 12-14 | QA, UAT, bug fixes | Not Started |
-| **Deployment** | Week 15 | Training, go-live, handover | Not Started |
+| Week | Milestone | Results | Status |
+|---|---|---|---|
+| Week 1–2 | Planning and Setup | 1. Finalizing requirements<br>2. Setup development environment<br>3. Create DB<br>4. Setup Git repo<br>5. Design basic UI wireframe | Completed |
+| Week 3–5 | Foundation (Backend + DB) | 1. Working DB<br>2. Auth function-ality<br>3. Basic API endpoint | Completed / In Progress |
+| Week 6–8 | Core Inventory Features | 1. Stock movement recording<br>2. Stock level updater<br>3. Transactional history | Not Started |
+| Week 9–11 | Frontend Development and New Features | 1. Mobile responsive UI<br>2. Admin overview<br>3. Interactive forms<br>4. Brainstorming on SQL features | Not Started |
+| Week 12–13 | Testing | 1. Data loading (if any)<br>2. Unit testing<br>3. Report generation | Not Started |
+| Week 14–15 | Polish, QA and Presentation | 1. Polish and UI/UX application<br>2. Polish and QA documentation<br>3. Presentation (if any) | Not Started |
+| Week 16 | Submission | Final project submission | Not Started |
 
-**Total Duration:** 15 Weeks
+**Total Duration:** 16 Weeks
 
 ---
 
@@ -119,30 +121,35 @@ Currently, companies manually record production inventory, leading to inefficien
 ```
 inventory-management-system/
 │
-├── backend/              # Server-side code
-│   ├── api/             # API endpoints
-│   ├── models/          # Database models
-│   ├── controllers/     # Business logic
-│   └── config/          # Configuration files
+├── backend/                # Server-side code
+│   ├── controllers/        # API endpoints
+│   ├── models/             # Database models
+│   ├── services/           # Business logic
+│   ├── repo/               # Database logic and querys
+|   |   └── query/          # Querys
+│   ├── templates/          # Frontend
+│   ├── database/           # Database configuration files
+│   ├── app.py              # Initilization of python app
+│   ├── config.py           # Database connection configuration
+│   └── requirments.txt     # Dependencies requirement file
 │
-├── frontend/            # Client-side code
-│   ├── assets/          # Images, CSS, JS
-│   ├── views/           # HTML templates
-│   └── components/      # Reusable UI components
+├── frontend/               # Frontend-side code
+│   ├── login.html          # Login page
+│   ├── dashboard.html      # Dashboard page
+│   ├── assets/             # Assets directory
+|   |   └── css/            # CSS directory
+|   |   └── fonts/          # Fonts directory
+|   |   └── icons/          # Icons directory
+|   |   └── js/             # JavaScript directory
 │
-├── database/            # Database scripts
-│   ├── schema.py        # Database structure
-│   ├── query.py         # Database query
-│   └── seed.sql         # Sample data
+├── docs/                   # Documentation
+│   ├── requirements.md     # Project requirements
+│   ├── api-docs.md         # API documentation
+│   └── user-guide.md       # User manual
 │
-├── docs/                # Documentation
-│   ├── requirements.md  # Project requirements
-│   ├── api-docs.md      # API documentation
-│   └── user-guide.md    # User manual
-│
-├── tests/               # Test files
-│   ├── unit/            # Unit tests
-│   └── integration/     # Integration tests
+├── tests/                  # Test files
+│   ├── unit/               # Unit tests
+│   └── integration/        # Integration tests
 │
 ├── .gitignore
 ├── README.md
@@ -205,17 +212,20 @@ cp .env.example .env
 
 ## 🗺️ Roadmap
 
-### Phase 1 (Weeks 1-5) - Foundation ✅
+### Phase 1 (Weeks 1-2) - Foundation ✅
 - [x] Requirements gathering
-- [x] Database design
-- [ ] Setup Dev Env
-- [ ] UI/UX mockups
+- [x] Setup repository
+- [x] Setup Dev Env
+- [x] UI/UX mockups
+- [x] Setup DB
 
-### Phase 2 (Weeks 6-11) - Development 🚧
-- [ ] Backend API development
+
+### Phase 2 (Weeks 3-11) - Development 🚧
+- [x] working DB
+- [x] Backend API development
+- [x] Authentication API
+- [x] Core features integration
 - [ ] Frontend implementation
-- [ ] Core features integration
-- [ ] Reporting module
 
 ### Phase 3 (Weeks 12-14) - Testing 📝
 - [ ] Unit & integration testing
