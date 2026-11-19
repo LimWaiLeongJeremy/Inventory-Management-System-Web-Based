@@ -135,14 +135,23 @@ inventory-management-system/
 │   ├── config.py           # Database connection configuration
 │   └── requirments.txt     # Dependencies requirement file
 │
-├── docs/                # Documentation
-│   ├── requirements.md  # Project requirements
-│   ├── api-docs.md      # API documentation
-│   └── user-guide.md    # User manual
+├── frontend/               # Frontend-side code
+│   ├── login.html          # Login page
+│   ├── dashboard.html      # Dashboard page
+│   ├── assets/             # Assets directory
+|   |   └── css/            # CSS directory
+|   |   └── fonts/          # Fonts directory
+|   |   └── icons/          # Icons directory
+|   |   └── js/             # JavaScript directory
 │
-├── tests/               # Test files
-│   ├── unit/            # Unit tests
-│   └── integration/     # Integration tests
+├── docs/                   # Documentation
+│   ├── requirements.md     # Project requirements
+│   ├── api-docs.md         # API documentation
+│   └── user-guide.md       # User manual
+│
+├── tests/                  # Test files
+│   ├── unit/               # Unit tests
+│   └── integration/        # Integration tests
 │
 ├── .gitignore
 ├── README.md
