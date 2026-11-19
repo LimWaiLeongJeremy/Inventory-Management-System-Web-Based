@@ -2,7 +2,7 @@ import traceback
 
 from flask import Blueprint, jsonify
 
-from services.loc_svc import get_locations_svc, get_zone_by_loc_svc, get_loc_exist_svc
+from services.loc_svc import get_locations_svc, get_zone_by_loc_svc, get_loc_exist_svc, get_bin_by_zone_svc
 from flask_jwt_extended import jwt_required
 
 # ========== Create blueprint ==========
@@ -66,6 +66,48 @@ def getZoneByLoc(location_code):
         return jsonify({
             "status": "success",
             "locations": [loc.to_dict() for loc in zones]
+        }), 200
+
+    except Exception:
+        traceback.print_exc()
+
+        return jsonify({
+            "status": "error",
+            "data": "Internal server error"
+        }), 500
+
+@location_bp.route('/api/<string:location_code>/<int:zone_id>', methods=['GET'])
+@jwt_required()
+def getBinByZone(location_code, zone_id):
+
+    # validate json value
+    if not isinstance(location_code, str) or not location_code:
+        return jsonify({
+            "status": "error",
+            "data": "location cannot be empty"
+        }), 400
+
+    if not isinstance(zone_id, int) or not zone_id:
+        return jsonify({
+            "status": "error",
+            "data": "zone cannot be empty"
+        }), 400
+        
+    try:
+        success, bins = get_bin_by_zone_svc(
+            location_code, 
+            zone_id
+        )
+
+        if not success:
+                return jsonify({
+                    "status": "error",
+                    "data": bins
+                }),409
+
+        return jsonify({
+            "status": "success",
+            "locations": [loc.to_dict() for loc in bins]
         }), 200
 
     except Exception:
