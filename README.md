@@ -102,8 +102,6 @@ Currently, companies manually record production inventory, leading to inefficien
 
 ## 📅 Development Timeline
 
-## 📅 Development Timeline
-
 | Week | Milestone | Results | Status |
 |---|---|---|---|
 | Week 1–2 | Planning and Setup | 1. Finalizing requirements<br>2. Setup development environment<br>3. Create DB<br>4. Setup Git repo<br>5. Design basic UI wireframe | Completed |
@@ -225,9 +223,9 @@ cp .env.example .env
 ### Phase 2 (Weeks 3-11) - Development 🚧
 - [x] working DB
 - [x] Backend API development
-- [ ] Authentication API
+- [x] Authentication API
+- [x] Core features integration
 - [ ] Frontend implementation
-- [ ] Core features integration
 
 ### Phase 3 (Weeks 12-14) - Testing 📝
 - [ ] Unit & integration testing
