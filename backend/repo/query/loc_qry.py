@@ -36,7 +36,8 @@ GET_LOC_EXIST = """
 GET_ZONE_BY_LOC = """
     SELECT
         DISTINCT z.code zone,
-        l.code location
+        l.code location,
+        z.description
     FROM
         locations l,
         zones z
@@ -47,6 +48,38 @@ GET_ZONE_BY_LOC = """
     ;
 """
 
+GET_BIN_BY_ZONE = """
+    SELECT 
+        l.name location, 
+        z.name zone, 
+        b.id bin_id, 
+        b.code bin_code, 
+        b.description description
+    FROM 
+        locations l,
+        zones z,
+        bins b
+    WHERE 
+        l.id = z.location_id
+    AND
+        z.id = b.zone_id
+    AND 
+        l.code = %s
+    AND
+        z.id = %s
+    ORDER BY
+        b.id
+    ;
+"""
+
+
+
+
+
+
+
+
+# Might not be needed
 GET_ALL_BINS = """
     SELECT 
         l.name location, 
