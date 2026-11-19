@@ -26,6 +26,25 @@ class Location:
 class Zone:
     zone: str
     location: str
+    description: str
+
+
+    # Method to set data from db to model
+    @classmethod
+    def from_row(cls, columns, row):
+        return cls(**dict(zip(columns, row)))
+        
+    def to_dict(self):
+        return asdict(self)
+
+
+@dataclass
+class Bin:
+    location: str
+    zone: str
+    bin_id: int
+    bin_code: str
+    description: str
 
 
     # Method to set data from db to model
