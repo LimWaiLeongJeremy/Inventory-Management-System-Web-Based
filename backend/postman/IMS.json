@@ -223,25 +223,24 @@
           "bearer": [
             {
               "key": "token",
-              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc5NTE2MDg3NCwianRpIjoiMWIxZWU4MjAtZDkxMS00NzUxLWIyYmUtMmYxZmVkNWZkMjdlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjI4IiwibmJmIjoxNzk1MTYwODc0LCJjc3JmIjoiMWIyNjI5ODgtNWJhOS00NGNkLTkwMTctNGM4MWZlMTIzNjJlIiwiZXhwIjoxNzk1MTYxNzc0LCJyb2xlIjoiYWRtaW4ifQ.KSV7QRqxjrGzkz6JG8Y0yc1M4u7PwprnPlk_PLSj4k4",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc5NTE2MzIwOSwianRpIjoiODIwZjhlOGItNDJmYS00NTc4LWIzOGYtNWZjMDNhNWRmMmZiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjI4IiwibmJmIjoxNzk1MTYzMjA5LCJjc3JmIjoiMzdjMzg1NTEtYTQ2My00MmM4LWFkODEtNGY5MDgzZTY5Yjc5IiwiZXhwIjoxNzk1MTY0MTA5LCJyb2xlIjoiYWRtaW4ifQ.clUk7MVJEs_VqsSMoq1mz2i4p4R7v4Z6zUjHygZBxaA",
               "type": "string"
             }
           ]
         },
         "description": "",
         "url": {
-          "raw": "{{baseUrl}}/api/locations/:location/:zone_id/:bin_id/products",
+          "raw": "{{baseUrl}}/api/product/:location/:zone_id/:bin_id",
           "protocol": "",
           "host": [
             "{{baseUrl}}"
           ],
           "path": [
             "api",
-            "locations",
+            "product",
             ":location",
             ":zone_id",
-            ":bin_id",
-            "products"
+            ":bin_id"
           ],
           "query": [],
           "variable": [
@@ -488,6 +487,88 @@
               ],
               "query": [],
               "variable": []
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [],
+          "cookie": [],
+          "body": ""
+        }
+      ]
+    },
+    {
+      "name": "Get Product by Location copy",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc5NTE2MzIwOSwianRpIjoiODIwZjhlOGItNDJmYS00NTc4LWIzOGYtNWZjMDNhNWRmMmZiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjI4IiwibmJmIjoxNzk1MTYzMjA5LCJjc3JmIjoiMzdjMzg1NTEtYTQ2My00MmM4LWFkODEtNGY5MDgzZTY5Yjc5IiwiZXhwIjoxNzk1MTY0MTA5LCJyb2xlIjoiYWRtaW4ifQ.clUk7MVJEs_VqsSMoq1mz2i4p4R7v4Z6zUjHygZBxaA",
+              "type": "string"
+            }
+          ]
+        },
+        "description": "",
+        "url": {
+          "raw": "{{baseUrl}}/api/locations/:location/:zone_id/:bin_id/products",
+          "protocol": "",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "locations",
+            ":location",
+            ":zone_id",
+            ":bin_id",
+            "products"
+          ],
+          "query": [],
+          "variable": [
+            {
+              "key": "bin_id",
+              "value": "79"
+            },
+            {
+              "key": "zone_id",
+              "value": "7"
+            },
+            {
+              "key": "location",
+              "value": "WH-001"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "200 Response",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/locations/:location/products",
+              "protocol": "",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "locations",
+                ":location",
+                "products"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "location",
+                  "value": "basement 1"
+                }
+              ]
             }
           },
           "status": "OK",

@@ -11,7 +11,7 @@ product_bp = Blueprint("product", __name__)
 
 
 # product api
-@product_bp.route('/api/locations/<string:location_code>/<int:zone_id>/<int:bin_id>/products', methods=['GET'])
+@product_bp.route('/api/product/<string:location_code>/<int:zone_id>/<int:bin_id>/', methods=['GET'])
 @jwt_required()
 def get_prod_by_loc_api(location_code, zone_id, bin_id):    
     # validate json value
