@@ -1,12 +1,12 @@
-GET_PRODUCT_BY_LOCATION_BIN = """
-    SELECT 
-		p.id, 
+GET_PRODUCT_BY_LOCATION_ZONE_BIN = """
+    SELECT  
         p.barcode, 
+		p.sku,
         p.name, 
         p.category, 
         p.unit, 
-        p.reorder_level, 
-        COUNT(p.id) quantity,
+        p.reorder_level,
+		COUNT(p.barcode) quantity,
 		l.code location,
 		z.id zone,
 		b.id bin
@@ -23,19 +23,23 @@ GET_PRODUCT_BY_LOCATION_BIN = """
 	AND
 		st.location_id = l.id
 	AND
-		st.product_id = p.id
+		st.product_id = p.barcode
     AND 
-        l.code = 'WH-001'
+        l.code = %s
     AND
-        z.id = 7
+        z.id = %s
+	AND
+		b.id = %s
 	GROUP BY
-		p.id,
+		p.barcode,
 		l.code,
 		z.id,
 		b.id
 	ORDER BY
 		p.name
     ;
+
+
 """
 
 GET_LOCATION_BY_PRODUCT = """
