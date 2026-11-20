@@ -6,7 +6,7 @@ GET_PRODUCT_BY_LOCATION_ZONE_BIN = """
         p.category, 
         p.unit, 
         p.reorder_level,
-		COUNT(p.barcode) quantity,
+		st.quantity quantity,
 		l.code location,
 		z.id zone,
 		b.id bin
@@ -32,6 +32,7 @@ GET_PRODUCT_BY_LOCATION_ZONE_BIN = """
 		b.id = %s
 	GROUP BY
 		p.barcode,
+		st.quantity,
 		l.code,
 		z.id,
 		b.id
