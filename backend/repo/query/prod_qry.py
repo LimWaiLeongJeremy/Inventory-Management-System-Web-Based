@@ -39,8 +39,25 @@ GET_PRODUCT_BY_LOCATION_ZONE_BIN = """
 	ORDER BY
 		p.name
     ;
+"""
 
-
+GET_CUR_STOCK_BY_ID = """
+    SELECT 
+        st.*
+    FROM 
+        stock_levels st, 
+        products p, 
+        locations l
+    WHERE 
+        st.product_id = p.barcode
+    AND 
+        st.location_id = l.id
+    AND 
+        l.code = 'WH-001'
+    AND 
+        p.barcode = '97'
+    FOR UPDATE OF st
+    ;
 """
 
 GET_LOCATION_BY_PRODUCT = """
