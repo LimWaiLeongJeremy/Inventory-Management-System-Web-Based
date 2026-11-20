@@ -3,8 +3,8 @@ from datetime import datetime
 
 @dataclass
 class Product:
-    id: int
-    barcode: str
+    barcode: int
+    sku: str
     name: str
     category: str
     unit: str
