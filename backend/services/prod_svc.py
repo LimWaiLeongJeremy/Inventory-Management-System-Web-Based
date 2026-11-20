@@ -1,10 +1,10 @@
 import traceback
 
-from repo.prod_repo import get_product_by_location_repo, get_location_by_product_repo
+from repo.prod_repo import get_product_by_location_zone_bin_repo, get_location_by_product_repo
 
-def get_product_by_location_svc(location):
+def get_product_by_location_zone_bin_svc(location_code, zone_id, bin_id):
     try:
-        status, result = get_product_by_location_repo(location)
+        status, result = get_product_by_location_zone_bin_repo(location_code, zone_id, bin_id)
         # Check if data exists
         if not result:
             return False, "Invalid location"

@@ -1,15 +1,15 @@
 import traceback
 
 from database.db import get_db_connection
-from .query.prod_qry import GET_PRODUCT_BY_LOCATION, GET_LOCATION_BY_PRODUCT
+from .query.prod_qry import GET_PRODUCT_BY_LOCATION_ZONE_BIN, GET_LOCATION_BY_PRODUCT
 from models.prod_model import Product
 
-def get_product_by_location_repo(location):
+def get_product_by_location_zone_bin_repo(location_code, zone_id, bin_id):
     conn = get_db_connection()
     try:
         cursor = conn.cursor()
         try:
-            rows = cursor.execute(GET_PRODUCT_BY_LOCATION, (location,)).fetchall()
+            rows = cursor.execute(GET_PRODUCT_BY_LOCATION_ZONE_BIN, (location_code, zone_id, bin_id,)).fetchall()
 
             # Setting model
             columns = [desc[0] for desc in cursor.description]
