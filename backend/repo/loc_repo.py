@@ -1,24 +1,94 @@
+import traceback
+
 from database.db import get_db_connection
-from .query.loc_qry import GET_LOCATIONS
-from models.loc_model import Location
+from .query.loc_qry import GET_ALL_LOCATIONS, GET_ZONE_BY_LOC, GET_LOC_EXIST, GET_BIN_BY_ZONE
+from models.loc_model import Location, Zone, Bin
 
-def get_locations():
+def get_all_locations_repo():
     conn = get_db_connection()
-    cursor = conn.cursor()
+    
+    try:
+        cursor = conn.cursor()
+        try:
+            rows = cursor.execute(GET_ALL_LOCATIONS).fetchall()
 
-    rows = cursor.execute(GET_LOCATIONS)
+            # Setting model
+            columns = [desc[0] for desc in cursor.description]
+            locations = [Location.from_row(columns, row) for row in rows]
 
-    locations = [
-        Location(
-            id = row[0], 
-            code = row[1], 
-            name = row[2], 
-            is_active = row[3]
-        )
-        for row in rows
-    ]
+            conn.commit()
+            return True, locations
+        finally:
+            cursor.close()
+    except Exception:
+        conn.rollback()
+        traceback.print_exc()
+        raise
+    finally:
+        conn.close()
 
-    cursor.close()
-    conn.close()
+def get_loc_exist_repo(location_code):
+    conn = get_db_connection()
+    
+    try:
+        cursor = conn.cursor()
+        try:
+            exists = cursor.execute(GET_LOC_EXIST, (location_code,)).fetchone()[0]
 
-    return locations
+            conn.commit()
+            return exists
+        finally:
+            cursor.close()
+    except Exception:
+        conn.rollback()
+        traceback.print_exc()
+        raise
+    finally:
+        conn.close()
+    
+
+def get_zone_by_loc_repo(location_code):
+    conn = get_db_connection()
+    
+    try:
+        cursor = conn.cursor()
+        try:
+            rows = cursor.execute(GET_ZONE_BY_LOC, (location_code,)).fetchall()
+
+            # Setting model
+            columns = [desc[0] for desc in cursor.description]
+            locations = [Zone.from_row(columns, row) for row in rows]
+
+            conn.commit()
+            return True, locations
+        finally:
+            cursor.close()
+    except Exception:
+        conn.rollback()
+        traceback.print_exc()
+        raise
+    finally:
+        conn.close()
+
+def get_bin_by_zone_repo(location_code, zone_id):
+    conn = get_db_connection()
+
+    try:
+        cursor = conn.cursor()
+        try:
+            rows = cursor.execute(GET_BIN_BY_ZONE, (location_code, zone_id,)).fetchall()
+
+            # Setting model
+            columns = [desc[0] for desc in cursor.description]
+            bins = [Bin.from_row(columns, row) for row in rows]
+
+            conn.commit()
+            return True, bins
+        finally:
+            cursor.close()
+    except Exception:
+        conn.rollback()
+        traceback.print_exc()
+        raise
+    finally:
+        conn.close()

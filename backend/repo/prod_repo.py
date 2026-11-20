@@ -1,51 +1,49 @@
+import traceback
+
 from database.db import get_db_connection
-from .query.prod_qry import GET_PRODUCT_BY_LOCATION, GET_LOCATION_BY_PRODUCT
+from .query.prod_qry import GET_PRODUCT_BY_LOCATION_ZONE_BIN, GET_LOCATION_BY_PRODUCT
 from models.prod_model import Product
 
-def get_product_by_location(location):
+def get_product_by_location_zone_bin_repo(location_code, zone_id, bin_id):
     conn = get_db_connection()
-    cursor = conn.cursor()
+    try:
+        cursor = conn.cursor()
+        try:
+            rows = cursor.execute(GET_PRODUCT_BY_LOCATION_ZONE_BIN, (location_code, zone_id, bin_id,)).fetchall()
 
-    rows = cursor.execute(GET_PRODUCT_BY_LOCATION, (location,))
+            # Setting model
+            columns = [desc[0] for desc in cursor.description]
+            products = [Product.from_row(columns, row) for row in rows]
 
-    products = [
-        Product(
-            location = row[0], 
-            barcode = row[1],
-            name = row[2], 
-            category = row[3], 
-            unit = row[4], 
-            reorder_level = row[5], 
-            quantity = row[6]
-        )
-        for row in rows
-    ]
+            conn.commit()
+            return True, products
+        finally:
+            cursor.close()
+    except Exception:
+        conn.rollback()
+        traceback.print_exc()
+        raise
+    finally:
+        conn.close()
 
-    cursor.close()
-    conn.close()
-
-    return products
-
-def get_location_by_product(product_name):
+def get_location_by_product_repo(product_name):
     conn = get_db_connection()
-    cursor = conn.cursor()
+    try:
+        cursor = conn.cursor()
+        try:
+            rows = cursor.execute(GET_LOCATION_BY_PRODUCT, (product_name,))
 
-    rows = cursor.execute(GET_LOCATION_BY_PRODUCT, (product_name,))
+            # Setting model
+            columns = [desc[0] for desc in cursor.description]
+            products = [Product.from_row(columns, row) for row in rows]
 
-    products = [
-        Product(
-            location = row[0], 
-            barcode = row[1],
-            name = row[2], 
-            category = row[3], 
-            unit = row[4], 
-            reorder_level = row[5], 
-            quantity = row[6]
-        )
-        for row in rows
-    ]
-
-    cursor.close()
-    conn.close()
-
-    return products
+            conn.commit()
+            return True, products
+        finally:
+            cursor.close()
+    except Exception:
+        conn.rollback()
+        traceback.print_exc()
+        raise
+    finally:
+        conn.close()

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log in · Company name.</title>
+  <link rel="stylesheet" href="assets/css/login.css">
+</head>
+<body>
+  <main class="page">
+    <section class="card">
+
+      <!-- Header -->
+      <header class="card-header">
+        <div class="brand">
+          <div class="brand-logo">COMPANY</div>
+          <div>
+            <p class="brand-name">Company name.</p>
+            <p class="brand-sub">Inventory management</p>
+          </div>
+        </div>
+        <span class="badge">Employee access</span>
+      </header>
+
+      <!-- Login form -->
+      <div class="card-body">
+        <h1>Welcome back</h1>
+        <p class="subtitle">Log in to your workspace to manage your inventory.</p>
+
+        <form id="loginForm" novalidate>
+          <label for="username">Username</label>
+          <div class="input-wrap">
+            <img class="input-icon" src="assets/icons/mail.svg" alt="">
+            <input id="username" type="text" placeholder="Enter your username" autocomplete="username">
+          </div>
+
+          <label for="password">Password</label>
+          <div class="input-wrap">
+            <img class="input-icon" src="assets/icons/lock.svg" alt="">
+            <input id="password" type="password" placeholder="Enter your password" autocomplete="current-password">
+            <button type="button" id="togglePassword" class="icon-btn" aria-label="Show password">
+              <img src="assets/icons/eye.svg" alt="">
+            </button>
+          </div>
+
+          <div class="row">
+            <label class="checkbox">
+              <input type="checkbox" id="remember"> Remember me
+            </label>
+            <a href="#" class="link" id="forgotLink">Forgot password?</a>
+          </div>
+
+          <!-- Error / info messages -->
+          <p id="formMessage" class="message" role="alert" hidden></p>
+
+          <button type="submit" class="btn-primary" id="loginBtn">
+            <span>Log in</span>
+            <img src="assets/icons/arrow-right.svg" alt="">
+          </button>
+        </form>
+
+        <p class="notice">
+          <img src="assets/icons/lock.svg" alt="">
+          For authorized employees only. Use the credentials provided by your workspace administrator.
+        </p>
+      </div>
+    </section>
+
+    <p class="help">
+      Having trouble logging in?
+      <a href="#" class="link" id="contactLink">Contact your administrator</a>
+    </p>
+  </main>
+
+  <script src="assets/js/login.js"></script>
+</body>
+</html>
