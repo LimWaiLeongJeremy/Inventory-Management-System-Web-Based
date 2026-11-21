@@ -1,5 +1,6 @@
 import traceback
 
+
 from database.db import get_db_connection
 from .query.prod_qry import GET_PRODUCT_BY_LOCATION_ZONE_BIN, GET_LOCATION_BY_PRODUCT
 from models.prod_model import Product
