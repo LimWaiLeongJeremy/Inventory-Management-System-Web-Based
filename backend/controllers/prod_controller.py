@@ -1,11 +1,16 @@
 import traceback
 
-from flask import Blueprint, jsonify
+from flask import (
+    Blueprint, 
+    jsonify,
+    request
+)
 from flask_jwt_extended import jwt_required, get_jwt
 
 from services.prod_svc import (
     get_product_by_location_zone_bin_svc, 
-    get_location_by_product_svc
+    get_location_by_product_svc,
+    stock_transfer_svc
 )
 
 # ========== Create blueprint ==========
@@ -56,6 +61,61 @@ def get_prod_by_loc_api(location_code, zone_id, bin_id):
             "status": "error",
             "data": "Internal server error"
         }), 500
+
+
+# Stock transfer api
+@product_bp.route('/api/product/transfer/', methods=['POST'])
+# @jwt_required()
+def stock_transfer_api():   
+    # get data from body
+    data = request.get_json()  
+
+    # Validate if body has content
+    if data is None:
+        return jsonify({
+            "status": "error",
+            "data": "Invalid or missing JSON data"
+        }), 400
+
+    # retriving datas
+    location_code = data.get('location_code', "")
+    product_code = data.get('product_code', "")
+    
+    # validate json value
+    if not isinstance(location_code, str) or not location_code:
+        return jsonify({
+            "status": "error",
+            "data": "location cannot be empty"
+        }), 400
+
+    if not isinstance(product_code, str) or not product_code:
+        return jsonify({
+            "status": "error",
+            "data": "product cannot be empty"
+        }), 400
+        
+
+    try:
+        success, stock_level = stock_transfer_svc(location_code, product_code)
+
+        if not success:
+                return jsonify({
+                    "status": "error",
+                    "data": stock_level
+                }),409
+        return jsonify({
+            'status': "success",
+            'stock_level': [stk.to_dict() for stk in stock_level]
+        }), 200
+
+    except Exception:
+        traceback.print_exc()
+
+        return jsonify({
+            "status": "error",
+            "data": "Internal server error"
+        }), 500
+
 
 
 @product_bp.route('/api/product/<string:product_name>/summary', methods=['GET'])
