@@ -55,6 +55,25 @@ def get_current_stock_by_id_repo(conn, location_id, product_barcode):
         cursor.close()
 
 
+def ist_outbound_repo(conn, quantity, product_id, location_id):
+    cursor = conn.cursor()
+    try:
+        # Execute query
+        rows = cursor.execute(
+            INS_OUTBOUND, 
+            (
+                puantity,
+                product_id,
+                location_id
+            ))
+
+        if cursor.rowcount > 0:
+            return True, "Outbound recorded successfully"
+        return False, "No recored was inserted"
+    finally:
+        cursor.close()
+
+
 
 
 
