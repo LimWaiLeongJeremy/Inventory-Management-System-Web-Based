@@ -59,10 +59,10 @@ def stock_transfer_svc(from_location_id, to_location_id, product_barcode, quanti
             conn, quantity, product_barcode, to_location_id, bin_id)
         if not ist_in_success:
             conn.rollback()
-            return dest_success, "Insert inbound record failed"
+            return ist_in_success, "Insert inbound record failed"
 
         # For testing
-        status, post_trns_result = get_current_stock_by_id_repo(
+        status, dest_result = get_current_stock_by_id_repo(
             conn, to_location_id, product_barcode)
 
         result = {
