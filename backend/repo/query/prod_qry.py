@@ -103,7 +103,6 @@ INS_INBOUND = """
     quantity,
 	bin_id
     )
-    # VALUES (97, 8, 5, 85)
     VALUES (%s, %s, %s, %s)
     ON CONFLICT (product_id, location_id)
     DO UPDATE SET
