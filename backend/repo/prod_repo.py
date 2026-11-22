@@ -62,14 +62,14 @@ def ist_outbound_repo(conn, quantity, product_id, location_id):
         rows = cursor.execute(
             INS_OUTBOUND, 
             (
-                puantity,
+                quantity,
                 product_id,
                 location_id
             ))
 
         if cursor.rowcount > 0:
-            return True, "Outbound recorded successfully"
-        return False, "No recored was inserted"
+            return True
+        return False
     finally:
         cursor.close()
 
