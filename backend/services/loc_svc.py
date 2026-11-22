@@ -43,9 +43,12 @@ def get_zone_by_loc_svc(location_code):
     finally:
         conn.close()  
 
+
 def get_bin_by_zone_svc(location_code, zone_id):
+    conn = get_db_connection()
     try:
         status, result = get_bin_by_zone_repo(
+            conn,
             location_code, 
             zone_id
         )
@@ -53,7 +56,11 @@ def get_bin_by_zone_svc(location_code, zone_id):
         if not result:
             return False, "could not find bins"
         return status, result
-    # Raise exception if failed 
+
+    # Raise exception if failed
     except Exception:
+        conn.rollback()
         traceback.print_exc()
-        raise
+        raise     
+    finally:
+        conn.close()  
