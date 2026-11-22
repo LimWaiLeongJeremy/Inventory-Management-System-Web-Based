@@ -75,7 +75,7 @@ GET_CUR_STOCK_BY_ID = """
     AND 
         st.location_id = l.id
     AND 
-        l.code = %s
+        l.id = %s
     AND 
         p.barcode = %s
     FOR UPDATE OF st
