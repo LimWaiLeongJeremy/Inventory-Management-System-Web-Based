@@ -75,10 +75,8 @@ GET_CUR_STOCK_BY_ID = """
     AND 
         st.location_id = l.id
     AND 
-        # l.code = 'WH-001'
         l.code = %s
     AND 
-        # p.barcode = '97'
         p.barcode = %s
     FOR UPDATE OF st
     ;
