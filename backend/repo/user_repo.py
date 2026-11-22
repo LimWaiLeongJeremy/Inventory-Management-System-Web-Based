@@ -17,6 +17,7 @@ def ist_usr_repo(
 
     cursor = conn.cursor()
     try:
+        # Execute query
         cursor.execute(IST_USR_QRY, (
             username,
             fullname,
@@ -43,6 +44,7 @@ def get_user_by_username(
 
     cursor = conn.cursor()
     try:
+        # Execute query
         cursor.execute(SEL_USR_BY_NAME, (
             username,
         ))
