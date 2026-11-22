@@ -3,7 +3,10 @@ import traceback
 from database.db import get_db_connection
 from bcrypt import hashpw, gensalt, checkpw
 from flask_jwt_extended import create_access_token
-from repo.user_repo import ist_usr_repo, get_user_by_username
+from repo.user_repo import (
+    ist_usr_repo, 
+    get_user_by_username
+)
 
 # Used to check the password when the user does not exist,
 # so a wrong username takes as long as a wrong password

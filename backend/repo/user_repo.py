@@ -1,6 +1,9 @@
 import traceback
 
-from .query.user_qry import IST_USR_QRY, SEL_USR_BY_NAME
+from .query.user_qry import (
+    IST_USR_QRY, 
+    SEL_USR_BY_NAME
+)
 from datetime import datetime
 from models.user_model import User
 
