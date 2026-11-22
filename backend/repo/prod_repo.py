@@ -3,7 +3,9 @@ import traceback
 from .query.prod_qry import (
     GET_PRODUCT_BY_LOCATION_ZONE_BIN, 
     GET_LOCATION_BY_PRODUCT,
-    GET_CUR_STOCK_BY_ID
+    GET_CUR_STOCK_BY_ID,
+    INS_OUTBOUND,
+    INS_INBOUND
 )
 from models.prod_model import (
     Product,
@@ -33,15 +35,15 @@ def get_product_by_location_zone_bin_repo(
 
 
 # Stock transfer
-def get_current_stock_by_code_repo(conn, location_code, product_code):
+def get_current_stock_by_id_repo(conn, location_id, product_barcode):
     cursor = conn.cursor()
     try:
         # Execute query
         rows = cursor.execute(
             GET_CUR_STOCK_BY_ID, 
             (
-                location_code,
-                product_code,
+                location_id,
+                product_barcode,
             ))
 
         # Setting model
