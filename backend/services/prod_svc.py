@@ -4,7 +4,8 @@ from database.db import get_db_connection
 from repo.prod_repo import (
     get_product_by_location_zone_bin_repo, 
     get_location_by_product_repo,
-    get_current_stock_by_code_repo
+    get_current_stock_by_id_repo,
+    ist_outbound_repo
 )
 
 def get_product_by_location_zone_bin_svc(
@@ -31,17 +32,30 @@ def get_product_by_location_zone_bin_svc(
     
 
 # Stock transfer
-def stock_transfer_svc(location_id, product_barcode):
+def stock_transfer_svc(location_id, product_barcode, quantity):
     conn = get_db_connection()
     try:
-        status, result = get_current_stock_by_code_repo(
+        # Get and lock product 
+        status, pre_trns_result = get_current_stock_by_id_repo(
             conn, location_id, product_barcode)
         # Check if data exists
         if not status:
             return status, "Invalid product"
-            
+
+        # insert outbound record
+        ist_out_success = ist_outbound_repo(
+            conn, quantity, product_barcode, location_id)
+        if not ist_out_success:
+            return ist_out_success, "Insert outbound record failed"
+        
+        # For testing
+        status, post_trns_result = get_current_stock_by_id_repo(
+            conn, location_id, product_barcode)
+
+        # TODO
+        # Change to commit
         conn.rollback()
-        return status, result
+        return status, post_trns_result
     # Raise exception if failed
     except Exception:
         conn.rollback()
