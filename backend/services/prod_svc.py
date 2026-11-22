@@ -49,6 +49,8 @@ def stock_transfer_svc(from_location_id, to_location_id, product_barcode, quanti
         if not ist_out_success:
             conn.rollback()
             return ist_out_success, "Insert outbound record failed"
+        status, source_result = get_current_stock_by_id_repo(
+            conn, from_location_id, product_barcode)
 
         # TODO 
         # get first inbound bin for all location
@@ -57,15 +59,15 @@ def stock_transfer_svc(from_location_id, to_location_id, product_barcode, quanti
             conn, quantity, product_barcode, to_location_id, bin_id)
         if not ist_in_success:
             conn.rollback()
-            return ist_out_success, "Insert inbound record failed"
+            return dest_success, "Insert inbound record failed"
 
         # For testing
         status, post_trns_result = get_current_stock_by_id_repo(
             conn, to_location_id, product_barcode)
 
         result = {
-            "source": [stk.to_dict() for stk in pre_trns_result],
-            "destination": [stk.to_dict() for stk in post_trns_result],
+            "source": [stk.to_dict() for stk in source_result],
+            "destination": [stk.to_dict() for stk in dest_result],
         }
         # TODO
         # Change to commit
