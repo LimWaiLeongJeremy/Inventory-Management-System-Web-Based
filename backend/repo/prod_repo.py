@@ -74,6 +74,25 @@ def ist_outbound_repo(conn, quantity, product_id, location_id):
         cursor.close()
 
 
+def ist_inbound_repo(conn, quantity, product_id, location_id, bin_id):
+    cursor = conn.cursor()
+    try:
+        # Execute query
+        rows = cursor.execute(
+            INS_INBOUND, 
+            (
+                product_id,
+                location_id,
+                quantity,
+                bin_id
+            ))
+
+        if cursor.rowcount > 0:
+            return True
+        return False
+    finally:
+        cursor.close()
+
 
 
 
