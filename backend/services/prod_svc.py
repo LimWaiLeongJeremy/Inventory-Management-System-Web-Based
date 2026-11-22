@@ -31,11 +31,11 @@ def get_product_by_location_zone_bin_svc(
     
 
 # Stock transfer
-def stock_transfer_svc(location_code, product_code):
+def stock_transfer_svc(location_id, product_barcode):
     conn = get_db_connection()
     try:
         status, result = get_current_stock_by_code_repo(
-            conn, location_code, product_code)
+            conn, location_id, product_barcode)
         # Check if data exists
         if not status:
             return status, "Invalid product"
