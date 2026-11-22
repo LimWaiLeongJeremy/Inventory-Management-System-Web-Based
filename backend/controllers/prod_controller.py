@@ -3,7 +3,10 @@ import traceback
 from flask import Blueprint, jsonify
 from flask_jwt_extended import jwt_required, get_jwt
 
-from services.prod_svc import get_product_by_location_zone_bin_svc, get_location_by_product_svc
+from services.prod_svc import (
+    get_product_by_location_zone_bin_svc, 
+    get_location_by_product_svc
+)
 
 # ========== Create blueprint ==========
 product_bp = Blueprint("product", __name__)
