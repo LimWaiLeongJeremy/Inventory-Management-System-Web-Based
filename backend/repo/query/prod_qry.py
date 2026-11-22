@@ -89,10 +89,8 @@ INS_OUTBOUND = """
     SET 
         quantity = quantity - %s
     WHERE 
-        # product_id = 97
         product_id = %s
     AND 
-        # location_id = 7
         location_id = %s
     ;
 """
