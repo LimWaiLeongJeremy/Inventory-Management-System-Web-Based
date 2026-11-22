@@ -15,7 +15,9 @@ def get_product_by_location_zone_bin_repo(
     cursor = conn.cursor()
     try:
         # Execute query
-        rows = cursor.execute(GET_PRODUCT_BY_LOCATION_ZONE_BIN, (location_code, zone_id, bin_id,)).fetchall()
+        rows = cursor.execute(
+            GET_PRODUCT_BY_LOCATION_ZONE_BIN, 
+            (location_code, zone_id, bin_id,)).fetchall()
 
         # Setting model
         columns = [desc[0] for desc in cursor.description]
@@ -30,7 +32,9 @@ def get_location_by_product_repo(conn, product_name):
     cursor = conn.cursor()
     try:
         # Execute query
-        rows = cursor.execute(GET_LOCATION_BY_PRODUCT, (product_name,))
+        rows = cursor.execute(
+            GET_LOCATION_BY_PRODUCT, 
+            (product_name,))
 
         # Setting model
         columns = [desc[0] for desc in cursor.description]
