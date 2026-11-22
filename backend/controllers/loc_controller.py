@@ -2,7 +2,7 @@ import traceback
 
 from flask import Blueprint, jsonify
 
-from services.loc_svc import get_locations_svc, get_zone_by_loc_svc, get_loc_exist_svc, get_bin_by_zone_svc
+from services.loc_svc import get_locations_svc, get_zone_by_loc_svc, get_bin_by_zone_svc
 from flask_jwt_extended import jwt_required
 
 # ========== Create blueprint ==========
@@ -15,7 +15,6 @@ location_bp = Blueprint("location", __name__)
 def getAllLoc():
     try:
         success, locations = get_locations_svc()
-
         if not success:
                 return jsonify({
                     "status": "error",
@@ -48,20 +47,13 @@ def getZoneByLoc(location_code):
         }), 400
     
     try:
-        exists = get_loc_exist_svc(location_code)
-        if not exists:
-            return jsonify({
-                    "status": "error",
-                    "data": "Location cannot be found"
-                }),404
-
         success, zones = get_zone_by_loc_svc(location_code)
 
         if not success:
                 return jsonify({
                     "status": "error",
                     "data": zones
-                }),409
+                }),404
 
         return jsonify({
             "status": "success",
