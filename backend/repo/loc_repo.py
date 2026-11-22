@@ -7,13 +7,13 @@ from models.loc_model import Location, Zone, Bin
 def get_all_locations_repo(conn):
     cursor = conn.cursor()
     try:
+        # Execute query
         rows = cursor.execute(GET_ALL_LOCATIONS).fetchall()
 
         # Setting model
         columns = [desc[0] for desc in cursor.description]
         locations = [Location.from_row(columns, row) for row in rows]
 
-        conn.commit()
         return True, locations
     finally:
         cursor.close()
