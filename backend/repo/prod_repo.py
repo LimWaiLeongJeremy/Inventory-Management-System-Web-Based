@@ -2,9 +2,13 @@ import traceback
 
 from .query.prod_qry import (
     GET_PRODUCT_BY_LOCATION_ZONE_BIN, 
-    GET_LOCATION_BY_PRODUCT
+    GET_LOCATION_BY_PRODUCT,
+    GET_CUR_STOCK_BY_ID
 )
-from models.prod_model import Product
+from models.prod_model import (
+    Product,
+    Stock_Level
+)
 
 def get_product_by_location_zone_bin_repo(
     conn, 
@@ -26,6 +30,30 @@ def get_product_by_location_zone_bin_repo(
         return True, products
     finally:
         cursor.close()
+
+
+# Stock transfer
+def get_current_stock_by_code_repo(conn, location_code, product_code):
+    cursor = conn.cursor()
+    try:
+        # Execute query
+        rows = cursor.execute(
+            GET_CUR_STOCK_BY_ID, 
+            (
+                location_code,
+                product_code,
+            ))
+
+        # Setting model
+        columns = [desc[0] for desc in cursor.description]
+        stock_Level = [Stock_Level.from_row(columns, row) for row in rows]
+
+        return True, stock_Level
+    finally:
+        cursor.close()
+
+
+
 
 
 def get_location_by_product_repo(conn, product_name):
