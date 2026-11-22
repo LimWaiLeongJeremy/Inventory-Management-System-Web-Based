@@ -2,7 +2,11 @@ import traceback
 
 from flask import Blueprint, jsonify
 
-from services.loc_svc import get_locations_svc, get_zone_by_loc_svc, get_bin_by_zone_svc
+from services.loc_svc import (
+    get_locations_svc, 
+    get_zone_by_loc_svc, 
+    get_bin_by_zone_svc
+)
 from flask_jwt_extended import jwt_required
 
 # ========== Create blueprint ==========

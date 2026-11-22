@@ -1,7 +1,12 @@
 import traceback
 
 from database.db import get_db_connection
-from .query.loc_qry import GET_ALL_LOCATIONS, GET_ZONE_BY_LOC, GET_LOC_EXIST, GET_BIN_BY_ZONE
+from .query.loc_qry import (
+    GET_ALL_LOCATIONS, 
+    GET_ZONE_BY_LOC, 
+    GET_LOC_EXIST, 
+    GET_BIN_BY_ZONE
+)
 from models.loc_model import Location, Zone, Bin
 
 def get_all_locations_repo(conn):

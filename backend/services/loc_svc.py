@@ -1,7 +1,12 @@
 import traceback
 
 from database.db import get_db_connection
-from repo.loc_repo import get_all_locations_repo, get_zone_by_loc_repo, get_loc_exist_repo, get_bin_by_zone_repo
+from repo.loc_repo import (
+    get_all_locations_repo, 
+    get_zone_by_loc_repo, 
+    get_loc_exist_repo, 
+    get_bin_by_zone_repo
+)
 
 def get_locations_svc():
     conn = get_db_connection()
