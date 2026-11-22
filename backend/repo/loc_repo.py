@@ -4,28 +4,19 @@ from database.db import get_db_connection
 from .query.loc_qry import GET_ALL_LOCATIONS, GET_ZONE_BY_LOC, GET_LOC_EXIST, GET_BIN_BY_ZONE
 from models.loc_model import Location, Zone, Bin
 
-def get_all_locations_repo():
-    conn = get_db_connection()
-    
+def get_all_locations_repo(conn):
+    cursor = conn.cursor()
     try:
-        cursor = conn.cursor()
-        try:
-            rows = cursor.execute(GET_ALL_LOCATIONS).fetchall()
+        rows = cursor.execute(GET_ALL_LOCATIONS).fetchall()
 
-            # Setting model
-            columns = [desc[0] for desc in cursor.description]
-            locations = [Location.from_row(columns, row) for row in rows]
+        # Setting model
+        columns = [desc[0] for desc in cursor.description]
+        locations = [Location.from_row(columns, row) for row in rows]
 
-            conn.commit()
-            return True, locations
-        finally:
-            cursor.close()
-    except Exception:
-        conn.rollback()
-        traceback.print_exc()
-        raise
+        conn.commit()
+        return True, locations
     finally:
-        conn.close()
+        cursor.close()
 
 def get_loc_exist_repo(location_code):
     conn = get_db_connection()
