@@ -42,6 +42,7 @@ def get_zone_by_loc_repo(conn, location_code):
     finally:
         cursor.close()
 
+
 def get_bin_by_zone_repo(conn, location_code, zone_id):
     cursor = conn.cursor()
     try:

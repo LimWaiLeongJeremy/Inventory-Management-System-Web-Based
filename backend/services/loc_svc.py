@@ -8,7 +8,6 @@ def get_locations_svc():
     try:
         status, result = get_all_locations_repo(conn)
         # Check if data exists
-        print("loc")
         if not result:
             return False, "could not find location"
         return status, result
