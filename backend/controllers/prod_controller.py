@@ -80,6 +80,7 @@ def stock_transfer_api():
     # retriving datas
     location_id = data.get('location_id', "")
     product_barcode = data.get('product_barcode', "")
+    quantity = data.get('quantity', "")
 
     # validate json value
     if not isinstance(location_id, int) or not location_id:
@@ -93,10 +94,16 @@ def stock_transfer_api():
             "status": "error",
             "data": "product cannot be empty"
         }), 400
+
+    if not isinstance(quantity, int) or not quantity:
+        return jsonify({
+            "status": "error",
+            "data": "quantity cannot be empty"
+        }), 400
         
 
     try:
-        success, stock_level = stock_transfer_svc(location_id, product_barcode)
+        success, stock_level = stock_transfer_svc(location_id, product_barcode, quantity)
 
         if not success:
                 return jsonify({
