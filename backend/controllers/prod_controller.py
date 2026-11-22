@@ -78,15 +78,24 @@ def stock_transfer_api():
         }), 400
 
     # retriving datas
-    location_id = data.get('location_id', "")
+    from_location_id = data.get('from_location_id', "")
+    to_location_id = data.get('to_location_id', "")
     product_barcode = data.get('product_barcode', "")
     quantity = data.get('quantity', "")
+    bin_id = data.get('bin_id', "")
+    
 
     # validate json value
-    if not isinstance(location_id, int) or not location_id:
+    if not isinstance(from_location_id, int) or not from_location_id:
         return jsonify({
             "status": "error",
-            "data": "location cannot be empty"
+            "data": "source location cannot be empty"
+        }), 400
+
+    if not isinstance(to_location_id, int) or not to_location_id:
+        return jsonify({
+            "status": "error",
+            "data": "destination location cannot be empty"
         }), 400
 
     if not isinstance(product_barcode, str) or not product_barcode:
@@ -100,10 +109,16 @@ def stock_transfer_api():
             "status": "error",
             "data": "quantity cannot be empty"
         }), 400
+
+    if not isinstance(bin_id, int) or not bin_id:
+        return jsonify({
+            "status": "error",
+            "data": "bin id cannot be empty"
+        }), 400
         
 
     try:
-        success, stock_level = stock_transfer_svc(location_id, product_barcode, quantity)
+        success, stock_level = stock_transfer_svc(from_location_id, to_location_id, product_barcode, quantity, bin_id)
 
         if not success:
                 return jsonify({
@@ -112,7 +127,7 @@ def stock_transfer_api():
                 }),409
         return jsonify({
             'status': "success",
-            'stock_level': [stk.to_dict() for stk in stock_level]
+            'stock_level': stock_level
         }), 200
 
     except Exception:
