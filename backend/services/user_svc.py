@@ -1,5 +1,6 @@
 import traceback
 
+from database.db import get_db_connection
 from bcrypt import hashpw, gensalt, checkpw
 from flask_jwt_extended import create_access_token
 from repo.user_repo import ist_usr_repo, get_user_by_username
@@ -10,10 +11,11 @@ DUMMY_HASH = hashpw(b"dummy-password", gensalt())
 
 
 def user_create_svc(username, fullname, password, role):
-
+    conn = get_db_connection()
     try: 
         # Validate if user in DB
         status, result = get_user_by_username(
+            conn,
             username
         )
 
@@ -29,6 +31,7 @@ def user_create_svc(username, fullname, password, role):
             ).decode('utf-8')
 
             status, result = ist_usr_repo(
+                conn,
                 username, 
                 fullname, 
                 hashed_password, 
@@ -41,21 +44,26 @@ def user_create_svc(username, fullname, password, role):
 
         return False, "User already registered"   
 
-       # Raise exception if user creation failed
+    # Raise exception if user creation failed
     except Exception:
+        conn.rollback()
         traceback.print_exc()
-        raise 
+        raise
+    finally:    
+        conn.close()
 
     
 
     
 def user_auth_svc(username, password):
+    conn = get_db_connection()
     try: 
+        # Check if user exists
         status, result = get_user_by_username(
+            conn,
             username
         )
 
-        # Check if user exists
         # still run checkpw so the response time does not reveal the username exists
         if not result:
             checkpw(password.encode('utf-8'), DUMMY_HASH)
@@ -81,7 +89,10 @@ def user_auth_svc(username, password):
 
         return True, user
 
-       # Raise exception if user creation failed
+    # Raise exception if user login failed
     except Exception:
+        conn.rollback()
         traceback.print_exc()
-        raise 
+        raise
+    finally:    
+        conn.close()
