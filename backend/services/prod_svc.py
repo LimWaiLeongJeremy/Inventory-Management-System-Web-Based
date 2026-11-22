@@ -3,7 +3,8 @@ import traceback
 from database.db import get_db_connection
 from repo.prod_repo import (
     get_product_by_location_zone_bin_repo, 
-    get_location_by_product_repo
+    get_location_by_product_repo,
+    get_current_stock_by_code_repo
 )
 
 def get_product_by_location_zone_bin_svc(
@@ -29,6 +30,29 @@ def get_product_by_location_zone_bin_svc(
         conn.close() 
     
 
+# Stock transfer
+def stock_transfer_svc(location_code, product_code):
+    conn = get_db_connection()
+    try:
+        status, result = get_current_stock_by_code_repo(
+            conn, location_code, product_code)
+        # Check if data exists
+        if not status:
+            return status, "Invalid product"
+            
+        conn.rollback()
+        return status, result
+    # Raise exception if failed
+    except Exception:
+        conn.rollback()
+        traceback.print_exc()
+        raise
+    finally:
+        conn.close() 
+
+
+
+
 def get_location_by_product_svc(product_name):
     conn = get_db_connection()
     try:
@@ -46,3 +70,4 @@ def get_location_by_product_svc(product_name):
         raise
     finally:
         conn.close() 
+
