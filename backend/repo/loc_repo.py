@@ -18,48 +18,29 @@ def get_all_locations_repo(conn):
     finally:
         cursor.close()
 
-def get_loc_exist_repo(location_code):
-    conn = get_db_connection()
-    
+def get_loc_exist_repo(conn, location_code):
+    cursor = conn.cursor()
     try:
-        cursor = conn.cursor()
-        try:
-            exists = cursor.execute(GET_LOC_EXIST, (location_code,)).fetchone()[0]
-
-            conn.commit()
-            return exists
-        finally:
-            cursor.close()
-    except Exception:
-        conn.rollback()
-        traceback.print_exc()
-        raise
+        # Execute query
+        exists = cursor.execute(GET_LOC_EXIST, (location_code,)).fetchone()[0]
+        return exists
     finally:
-        conn.close()
+        cursor.close()
     
 
-def get_zone_by_loc_repo(location_code):
-    conn = get_db_connection()
-    
+def get_zone_by_loc_repo(conn, location_code):
+    cursor = conn.cursor()
     try:
-        cursor = conn.cursor()
-        try:
-            rows = cursor.execute(GET_ZONE_BY_LOC, (location_code,)).fetchall()
+        # Execute query
+        rows = cursor.execute(GET_ZONE_BY_LOC, (location_code,)).fetchall()
 
-            # Setting model
-            columns = [desc[0] for desc in cursor.description]
-            locations = [Zone.from_row(columns, row) for row in rows]
+        # Setting model
+        columns = [desc[0] for desc in cursor.description]
+        locations = [Zone.from_row(columns, row) for row in rows]
 
-            conn.commit()
-            return True, locations
-        finally:
-            cursor.close()
-    except Exception:
-        conn.rollback()
-        traceback.print_exc()
-        raise
+        return True, locations
     finally:
-        conn.close()
+        cursor.close()
 
 def get_bin_by_zone_repo(location_code, zone_id):
     conn = get_db_connection()
