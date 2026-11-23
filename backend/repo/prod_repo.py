@@ -1,51 +1,45 @@
-from database.db import get_db_connection
-from .query.prod_qry import GET_PRODUCT_BY_LOCATION, GET_LOCATION_BY_PRODUCT
+import traceback
+
+from .query.prod_qry import (
+    GET_PRODUCT_BY_LOCATION_ZONE_BIN, 
+    GET_LOCATION_BY_PRODUCT
+)
 from models.prod_model import Product
 
-def get_product_by_location(location):
-    conn = get_db_connection()
+def get_product_by_location_zone_bin_repo(
+    conn, 
+    location_code, 
+    zone_id, 
+    bin_id
+):
     cursor = conn.cursor()
+    try:
+        # Execute query
+        rows = cursor.execute(
+            GET_PRODUCT_BY_LOCATION_ZONE_BIN, 
+            (location_code, zone_id, bin_id,)).fetchall()
 
-    rows = cursor.execute(GET_PRODUCT_BY_LOCATION, (location,))
+        # Setting model
+        columns = [desc[0] for desc in cursor.description]
+        products = [Product.from_row(columns, row) for row in rows]
 
-    products = [
-        Product(
-            location = row[0], 
-            barcode = row[1],
-            name = row[2], 
-            category = row[3], 
-            unit = row[4], 
-            reorder_level = row[5], 
-            quantity = row[6]
-        )
-        for row in rows
-    ]
+        return True, products
+    finally:
+        cursor.close()
 
-    cursor.close()
-    conn.close()
 
-    return products
-
-def get_location_by_product(product_name):
-    conn = get_db_connection()
+def get_location_by_product_repo(conn, product_name):
     cursor = conn.cursor()
+    try:
+        # Execute query
+        rows = cursor.execute(
+            GET_LOCATION_BY_PRODUCT, 
+            (product_name,))
 
-    rows = cursor.execute(GET_LOCATION_BY_PRODUCT, (product_name,))
+        # Setting model
+        columns = [desc[0] for desc in cursor.description]
+        products = [Product.from_row(columns, row) for row in rows]
 
-    products = [
-        Product(
-            location = row[0], 
-            barcode = row[1],
-            name = row[2], 
-            category = row[3], 
-            unit = row[4], 
-            reorder_level = row[5], 
-            quantity = row[6]
-        )
-        for row in rows
-    ]
-
-    cursor.close()
-    conn.close()
-
-    return products
+        return True, products
+    finally:
+        cursor.close()

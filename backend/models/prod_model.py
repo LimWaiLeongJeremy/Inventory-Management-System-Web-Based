@@ -1,14 +1,23 @@
 from dataclasses import dataclass, asdict
+from datetime import datetime
 
 @dataclass
 class Product:
-    location: str
-    barcode: str
+    barcode: int
+    sku: str
     name: str
     category: str
     unit: str
     reorder_level: int
     quantity: int
+    location: str
+    zone: str
+    bin: str
+
+    # Method to set data from db to model
+    @classmethod
+    def from_row(cls, columns, row):
+        return cls(**dict(zip(columns, row)))
 
     def to_dict(self):
         return asdict(self)
