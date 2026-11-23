@@ -10,22 +10,15 @@
       "request": {
         "method": "POST",
         "header": [],
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc5NDIyMTQ2MiwianRpIjoiNDkyMjA2YjMtNjk3ZS00ZmRkLTljODUtOTkxNzc0MTU0OTU5IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjMyIiwibmJmIjoxNzk0MjIxNDYyLCJjc3JmIjoiYmMyNmY0YWItNzQxNS00NGQ5LTlhOTEtZDBhZDRhNjhhOTdlIiwiZXhwIjoxNzk0MjIyMzYyLCJyb2xlIjoidXNlciJ9.kEjT3qtLwPS1165aDmF0I2Bhbtas4FmtPdf2od8cPqQ",
-              "type": "string"
-            }
-          ]
-        },
         "description": "",
         "url": {
-          "raw": "{{baseUrl}}/api/user/create",
-          "protocol": "",
+          "raw": "http://127.0.0.1:5000/api/user/create",
+          "protocol": "http",
           "host": [
-            "{{baseUrl}}"
+            "127",
+            "0",
+            "0",
+            "1:5000"
           ],
           "path": [
             "api",
@@ -88,22 +81,15 @@
       "request": {
         "method": "GET",
         "header": [],
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc5NDIyMDI1MSwianRpIjoiNTJjMzk4YTAtMTE0YS00NjMxLTgwMjUtMGI1MTUxM2VhZGI4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjMyIiwibmJmIjoxNzk0MjIwMjUxLCJjc3JmIjoiY2I1ZTc3MzctYWMzNy00NWJmLTliZjEtNjg4MDE3MjhjZWVmIiwiZXhwIjoxNzk0MjIxMTUxLCJyb2xlIjoidXNlciJ9.IJmiyELdsHJFoNS5LMlfx9WHsb0SH63arxCQud4xHEQ",
-              "type": "string"
-            }
-          ]
-        },
         "description": "",
         "url": {
-          "raw": "{{baseUrl}}/api/product/:product_name/summary",
-          "protocol": "",
+          "raw": "http://127.0.0.1:5000/api/product/:product_name/summary",
+          "protocol": "http",
           "host": [
-            "{{baseUrl}}"
+            "127",
+            "0",
+            "0",
+            "1:5000"
           ],
           "path": [
             "api",
@@ -160,22 +146,15 @@
       "request": {
         "method": "GET",
         "header": [],
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc5NTE2MDg3NCwianRpIjoiMWIxZWU4MjAtZDkxMS00NzUxLWIyYmUtMmYxZmVkNWZkMjdlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjI4IiwibmJmIjoxNzk1MTYwODc0LCJjc3JmIjoiMWIyNjI5ODgtNWJhOS00NGNkLTkwMTctNGM4MWZlMTIzNjJlIiwiZXhwIjoxNzk1MTYxNzc0LCJyb2xlIjoiYWRtaW4ifQ.KSV7QRqxjrGzkz6JG8Y0yc1M4u7PwprnPlk_PLSj4k4",
-              "type": "string"
-            }
-          ]
-        },
         "description": "",
         "url": {
-          "raw": "{{baseUrl}}/api/location",
-          "protocol": "",
+          "raw": "http://127.0.0.1:5000/api/location",
+          "protocol": "http",
           "host": [
-            "{{baseUrl}}"
+            "127",
+            "0",
+            "0",
+            "1:5000"
           ],
           "path": [
             "api",
@@ -218,22 +197,15 @@
       "request": {
         "method": "GET",
         "header": [],
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc5NTE2MzIwOSwianRpIjoiODIwZjhlOGItNDJmYS00NTc4LWIzOGYtNWZjMDNhNWRmMmZiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjI4IiwibmJmIjoxNzk1MTYzMjA5LCJjc3JmIjoiMzdjMzg1NTEtYTQ2My00MmM4LWFkODEtNGY5MDgzZTY5Yjc5IiwiZXhwIjoxNzk1MTY0MTA5LCJyb2xlIjoiYWRtaW4ifQ.clUk7MVJEs_VqsSMoq1mz2i4p4R7v4Z6zUjHygZBxaA",
-              "type": "string"
-            }
-          ]
-        },
         "description": "",
         "url": {
-          "raw": "{{baseUrl}}/api/product/:location/:zone_id/:bin_id",
-          "protocol": "",
+          "raw": "http://127.0.0.1:5000/api/product/:location/:zone_id/:bin_id",
+          "protocol": "http",
           "host": [
-            "{{baseUrl}}"
+            "127",
+            "0",
+            "0",
+            "1:5000"
           ],
           "path": [
             "api",
@@ -304,10 +276,13 @@
         },
         "description": "",
         "url": {
-          "raw": "{{baseUrl}}/api/user/login",
-          "protocol": "",
+          "raw": "http://127.0.0.1:5000/api/user/login",
+          "protocol": "http",
           "host": [
-            "{{baseUrl}}"
+            "127",
+            "0",
+            "0",
+            "1:5000"
           ],
           "path": [
             "api",
@@ -370,22 +345,15 @@
       "request": {
         "method": "GET",
         "header": [],
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc5NTE2MDg3NCwianRpIjoiMWIxZWU4MjAtZDkxMS00NzUxLWIyYmUtMmYxZmVkNWZkMjdlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjI4IiwibmJmIjoxNzk1MTYwODc0LCJjc3JmIjoiMWIyNjI5ODgtNWJhOS00NGNkLTkwMTctNGM4MWZlMTIzNjJlIiwiZXhwIjoxNzk1MTYxNzc0LCJyb2xlIjoiYWRtaW4ifQ.KSV7QRqxjrGzkz6JG8Y0yc1M4u7PwprnPlk_PLSj4k4",
-              "type": "string"
-            }
-          ]
-        },
         "description": "",
         "url": {
-          "raw": "{{baseUrl}}/api/:location/zone",
-          "protocol": "",
+          "raw": "http://127.0.0.1:5000/api/:location/zone",
+          "protocol": "http",
           "host": [
-            "{{baseUrl}}"
+            "127",
+            "0",
+            "0",
+            "1:5000"
           ],
           "path": [
             "api",
@@ -434,22 +402,15 @@
       "request": {
         "method": "GET",
         "header": [],
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc5NTE2MDg3NCwianRpIjoiMWIxZWU4MjAtZDkxMS00NzUxLWIyYmUtMmYxZmVkNWZkMjdlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjI4IiwibmJmIjoxNzk1MTYwODc0LCJjc3JmIjoiMWIyNjI5ODgtNWJhOS00NGNkLTkwMTctNGM4MWZlMTIzNjJlIiwiZXhwIjoxNzk1MTYxNzc0LCJyb2xlIjoiYWRtaW4ifQ.KSV7QRqxjrGzkz6JG8Y0yc1M4u7PwprnPlk_PLSj4k4",
-              "type": "string"
-            }
-          ]
-        },
         "description": "",
         "url": {
-          "raw": "{{baseUrl}}/api/:location/:zone",
-          "protocol": "",
+          "raw": "http://127.0.0.1:5000/api/:location/:zone",
+          "protocol": "http",
           "host": [
-            "{{baseUrl}}"
+            "127",
+            "0",
+            "0",
+            "1:5000"
           ],
           "path": [
             "api",
@@ -498,50 +459,28 @@
       ]
     },
     {
-      "name": "Get Product by Location copy",
+      "name": "Get low stock product",
       "request": {
         "method": "GET",
         "header": [],
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc5NTE2MzIwOSwianRpIjoiODIwZjhlOGItNDJmYS00NTc4LWIzOGYtNWZjMDNhNWRmMmZiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjI4IiwibmJmIjoxNzk1MTYzMjA5LCJjc3JmIjoiMzdjMzg1NTEtYTQ2My00MmM4LWFkODEtNGY5MDgzZTY5Yjc5IiwiZXhwIjoxNzk1MTY0MTA5LCJyb2xlIjoiYWRtaW4ifQ.clUk7MVJEs_VqsSMoq1mz2i4p4R7v4Z6zUjHygZBxaA",
-              "type": "string"
-            }
-          ]
-        },
         "description": "",
         "url": {
-          "raw": "{{baseUrl}}/api/locations/:location/:zone_id/:bin_id/products",
-          "protocol": "",
+          "raw": "http://127.0.0.1:5000/api/product/low/stock",
+          "protocol": "http",
           "host": [
-            "{{baseUrl}}"
+            "127",
+            "0",
+            "0",
+            "1:5000"
           ],
           "path": [
             "api",
-            "locations",
-            ":location",
-            ":zone_id",
-            ":bin_id",
-            "products"
+            "product",
+            "low",
+            "stock"
           ],
           "query": [],
-          "variable": [
-            {
-              "key": "bin_id",
-              "value": "79"
-            },
-            {
-              "key": "zone_id",
-              "value": "7"
-            },
-            {
-              "key": "location",
-              "value": "WH-001"
-            }
-          ]
+          "variable": []
         }
       },
       "response": [
@@ -578,6 +517,138 @@
           "body": ""
         }
       ]
+    },
+    {
+      "name": "Get out of stock product ",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "description": "",
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/product/low/stock",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1:5000"
+          ],
+          "path": [
+            "api",
+            "product",
+            "low",
+            "stock"
+          ],
+          "query": [],
+          "variable": []
+        }
+      },
+      "response": [
+        {
+          "name": "200 Response",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/locations/:location/products",
+              "protocol": "",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "locations",
+                ":location",
+                "products"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "location",
+                  "value": "basement 1"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [],
+          "cookie": [],
+          "body": ""
+        }
+      ]
+    },
+    {
+      "name": "Stock transfer",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "description": "",
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/product/transfer/",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1:5000"
+          ],
+          "path": [
+            "api",
+            "product",
+            "transfer",
+            ""
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"from_location_id\": 7,\n  \"to_location_id\": 8,\n  \"product_barcode\": \"97\",\n  \"quantity\": 5,\n  \"bin_id\": 85\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "name": "200 Response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/user/login",
+              "protocol": "",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "user",
+                "login"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [],
+          "cookie": [],
+          "body": ""
+        }
+      ]
     }
   ],
   "variable": [
@@ -586,5 +657,15 @@
       "value": "",
       "type": "default"
     }
-  ]
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc5NTQxMjQ3OCwianRpIjoiMTE0YWRlM2UtZGJiMS00Y2ZkLWFlODQtOGIzMGNiMmMyMjg4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjI4IiwibmJmIjoxNzk1NDEyNDc4LCJjc3JmIjoiYzVkZDhmYmMtMmI1Yi00NWM1LWFmNjMtNjJmMDMzM2M0MWE0IiwiZXhwIjoxNzk1NDEzMzc4LCJyb2xlIjoiYWRtaW4ifQ.Px-PP3RNTWBLbdqu02jfFf2GMSGYP93MXacuZtZDzkc",
+        "type": "string"
+      }
+    ]
+  }
 }

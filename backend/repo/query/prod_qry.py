@@ -75,39 +75,34 @@ GET_CUR_STOCK_BY_ID = """
     AND 
         st.location_id = l.id
     AND 
-        # l.code = 'WH-001'
-        l.code = %s
+        l.id = %s
     AND 
-        # p.barcode = '97'
         p.barcode = %s
     FOR UPDATE OF st
     ;
 """
 
 # Deduction of stocks from source location
-INS_OUTBOUND = """
+IST_OUTBOUND = """
     UPDATE 
         stock_levels
     SET 
         quantity = quantity - %s
     WHERE 
-        # product_id = 97
         product_id = %s
     AND 
-        # location_id = 7
         location_id = %s
     ;
 """
 
 # Insertion od stocks to  destination location
-INS_INBOUND = """
+IST_INBOUND = """
     INSERT INTO stock_levels (
     product_id,
     location_id,
     quantity,
 	bin_id
     )
-    # VALUES (97, 8, 5, 85)
     VALUES (%s, %s, %s, %s)
     ON CONFLICT (product_id, location_id)
     DO UPDATE SET
@@ -116,7 +111,7 @@ INS_INBOUND = """
 """
 
 # Update logs
-INSERT_TRX_LOGS = """
+IST_TXN_LOGS = """
     INSERT INTO transactions (
         type,
         product_id,
@@ -126,20 +121,9 @@ INSERT_TRX_LOGS = """
         reference,
         note,
         submission_id,
-        user_id,
-        created_at
+        user_id
     )
     VALUES (
-        # 'TRANSFER',
-        # 97,
-        # 7,
-        # 8,
-        # 5,
-        # 'Please parse ref from frontend here!', 
-        # 'Please parse note from frontend here!',
-        # gen_random_uuid(),
-        # 28,
-        # '2026-11-20 14:30:00'
         %s,
         %s,
         %s,
@@ -148,7 +132,6 @@ INSERT_TRX_LOGS = """
         %s, 
         %s,
         gen_random_uuid(),
-        %s,
         %s
     );
 """

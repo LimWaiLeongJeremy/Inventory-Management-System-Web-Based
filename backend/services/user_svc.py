@@ -40,6 +40,8 @@ def user_create_svc(username, fullname, password, role):
                 hashed_password, 
                 role
             )
+            conn.commit()
+
         if status:
             return True, {
                 "employee_id": result
