@@ -1,9 +1,16 @@
 import traceback
 
-from flask import Blueprint, jsonify, request, session
+from flask import (
+    Blueprint, 
+    jsonify, 
+    request, 
+    session
+)
 from flask_jwt_extended import jwt_required, get_jwt
-from services.user_svc import user_auth_svc, user_create_svc
- 
+from services.user_svc import (
+    user_auth_svc, 
+    user_create_svc
+)
 
 # ========== Create blueprint ==========
 user_bp = Blueprint("auth", __name__)

@@ -3,16 +3,16 @@ from datetime import datetime
 
 @dataclass
 class Product:
-    id: int
-    barcode: str
+    barcode: int
+    sku: str
     name: str
     category: str
     unit: str
     reorder_level: int
-    created_at: datetime
-    restock_at: datetime
     quantity: int
     location: str
+    zone: str
+    bin: str
 
     # Method to set data from db to model
     @classmethod

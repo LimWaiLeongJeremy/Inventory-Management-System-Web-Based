@@ -3,7 +3,10 @@ import traceback
 from flask import Blueprint, jsonify
 from flask_jwt_extended import jwt_required, get_jwt
 
-from services.prod_svc import get_product_by_location_svc, get_location_by_product_svc
+from services.prod_svc import (
+    get_product_by_location_zone_bin_svc, 
+    get_location_by_product_svc
+)
 
 # ========== Create blueprint ==========
 product_bp = Blueprint("product", __name__)
@@ -11,27 +14,38 @@ product_bp = Blueprint("product", __name__)
 
 
 # product api
-@product_bp.route('/api/locations/<string:location_name>/products', methods=['GET'])
+@product_bp.route('/api/product/<string:location_code>/<int:zone_id>/<int:bin_id>/', methods=['GET'])
 @jwt_required()
-def get_prod_by_loc_api(location_name):    
+def get_prod_by_loc_api(location_code, zone_id, bin_id):    
     # validate json value
-    if not isinstance(location_name, str) or not location_name:
+    if not isinstance(location_code, str) or not location_code:
         return jsonify({
             "status": "error",
             "data": "location cannot be empty"
         }), 400
 
+    if not isinstance(zone_id, int) or not zone_id:
+        return jsonify({
+            "status": "error",
+            "data": "zone cannot be empty"
+        }), 400
+        
+    if not isinstance(bin_id, int) or not bin_id:
+        return jsonify({
+            "status": "error",
+            "data": "bin cannot be empty"
+        }), 400
+
     try:
-        success, products = get_product_by_location_svc(location_name)
+        success, products = get_product_by_location_zone_bin_svc(location_code, zone_id, bin_id)
 
         if not success:
                 return jsonify({
                     "status": "error",
-                    "data": result
+                    "data": products
                 }),409
         return jsonify({
             'status': "success",
-            'location': location_name,
             'products': [prod.to_dict() for prod in products]
         }), 200
 
