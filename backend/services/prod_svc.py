@@ -6,8 +6,10 @@ from repo.prod_repo import (
     get_location_by_product_repo,
     get_current_stock_by_id_repo,
     ist_outbound_repo,
-    ist_inbound_repo
+    ist_inbound_repo,
+    ist_txn_logs_repo
 )
+
 
 def get_product_by_location_zone_bin_svc(
     location_code, 
@@ -33,7 +35,16 @@ def get_product_by_location_zone_bin_svc(
     
 
 # Stock transfer
-def stock_transfer_svc(from_location_id, to_location_id, product_barcode, quantity, bin_id):
+def stock_transfer_svc(
+        from_location_id, 
+        to_location_id, 
+        product_barcode, 
+        quantity, 
+        bin_id,
+        reference,
+        note,
+        user_id
+    ):
     conn = get_db_connection()
     try:
         # Get and lock product 
@@ -61,6 +72,18 @@ def stock_transfer_svc(from_location_id, to_location_id, product_barcode, quanti
             conn.rollback()
             return ist_in_success, "Insert inbound record failed"
 
+        ist_txn_success = ist_txn_logs_repo(
+            conn,
+            "TRANSFER",
+            product_barcode,
+            from_location_id,
+            to_location_id,
+            quantity,
+            reference,
+            note,
+            user_id
+        )
+
         # For testing
         status, dest_result = get_current_stock_by_id_repo(
             conn, to_location_id, product_barcode)
@@ -68,6 +91,7 @@ def stock_transfer_svc(from_location_id, to_location_id, product_barcode, quanti
         result = {
             "source": [stk.to_dict() for stk in source_result],
             "destination": [stk.to_dict() for stk in dest_result],
+            "logs": ist_txn_success
         }
         # TODO
         # Change to commit
