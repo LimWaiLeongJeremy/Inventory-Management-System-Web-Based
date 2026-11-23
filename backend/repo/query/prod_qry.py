@@ -23,6 +23,8 @@ GET_PRODUCT_BY_LOCATION_ZONE_BIN = """
 	AND
 		st.location_id = l.id
 	AND
+		st.bin_id = b.id
+	AND
 		st.product_id = p.barcode
     AND 
         l.code = %s
@@ -30,12 +32,6 @@ GET_PRODUCT_BY_LOCATION_ZONE_BIN = """
         z.id = %s
 	AND
 		b.id = %s
-	GROUP BY
-		p.barcode,
-		st.quantity,
-		l.code,
-		z.id,
-		b.id
 	ORDER BY
 		p.name
     ;
@@ -43,19 +39,30 @@ GET_PRODUCT_BY_LOCATION_ZONE_BIN = """
 
 GET_LOCATION_BY_PRODUCT = """
     SELECT 
-        p.*, 
-        s.quantity,
-        l.name location
+        p.barcode, 
+        p.sku, 
+        p.name, 
+        p.category, 
+        p.unit, 
+        p.reorder_level, 
+        st.quantity quantity, 
+        l.code location, 
+        b.zone_id zone, 
+        st.bin_id bin
     FROM 
-        locations l, 
-        stock_levels s, 
-        products p
+        stock_levels st
+    JOIN 
+        products p ON p.barcode = st.product_id
+    JOIN 
+        locations l ON l.id = st.location_id
+    -- LEFT JOIN: bin_id is optional in stock_levels
+    LEFT JOIN 
+        bins b ON b.id = st.bin_id
     WHERE 
-        l.id = s.location_id
-    AND 
-        s.product_id = p.id
-    AND 
-        p.name ILIKE %s;
+        p.name ILIKE %s
+    ORDER BY 
+        l.code
+    ;
 """
 
 
@@ -75,10 +82,10 @@ GET_CUR_STOCK_BY_ID = """
     AND 
         st.location_id = l.id
     AND 
-        # l.code = 'WH-001'
+        -- l.code = 'WH-001'
         l.code = %s
     AND 
-        # p.barcode = '97'
+        -- p.barcode = '97'
         p.barcode = %s
     FOR UPDATE OF st
     ;
@@ -91,10 +98,10 @@ INS_OUTBOUND = """
     SET 
         quantity = quantity - %s
     WHERE 
-        # product_id = 97
+        -- product_id = 97
         product_id = %s
     AND 
-        # location_id = 7
+        -- location_id = 7
         location_id = %s
     ;
 """
@@ -107,7 +114,7 @@ INS_INBOUND = """
     quantity,
 	bin_id
     )
-    # VALUES (97, 8, 5, 85)
+    -- VALUES (97, 8, 5, 85)
     VALUES (%s, %s, %s, %s)
     ON CONFLICT (product_id, location_id)
     DO UPDATE SET
@@ -130,16 +137,16 @@ INSERT_TRX_LOGS = """
         created_at
     )
     VALUES (
-        # 'TRANSFER',
-        # 97,
-        # 7,
-        # 8,
-        # 5,
-        # 'Please parse ref from frontend here!', 
-        # 'Please parse note from frontend here!',
-        # gen_random_uuid(),
-        # 28,
-        # '2026-11-20 14:30:00'
+        -- 'TRANSFER',
+        -- 97,
+        -- 7,
+        -- 8,
+        -- 5,
+        -- 'Please parse ref from frontend here!', 
+        -- 'Please parse note from frontend here!',
+        -- gen_random_uuid(),
+        -- 28,
+        -- '2026-11-20 14:30:00'
         %s,
         %s,
         %s,
