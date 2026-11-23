@@ -5,7 +5,7 @@ from flask import (
     jsonify,
     request
 )
-from flask_jwt_extended import jwt_required, get_jwt
+from flask_jwt_extended import jwt_required, get_jwt, get_jwt_identity
 
 from services.prod_svc import (
     get_product_by_location_zone_bin_svc, 
@@ -65,7 +65,7 @@ def get_prod_by_loc_api(location_code, zone_id, bin_id):
 
 # Stock transfer api
 @product_bp.route('/api/product/transfer/', methods=['POST'])
-# @jwt_required()
+@jwt_required()
 def stock_transfer_api():   
     # get data from body
     data = request.get_json()  
@@ -83,6 +83,9 @@ def stock_transfer_api():
     product_barcode = data.get('product_barcode', "")
     quantity = data.get('quantity', "")
     bin_id = data.get('bin_id', "")
+    reference = data.get('reference', "")
+    note = data.get('note', "")
+    user_id = get_jwt_identity()
     
 
     # validate json value
@@ -118,7 +121,16 @@ def stock_transfer_api():
         
 
     try:
-        success, stock_level = stock_transfer_svc(from_location_id, to_location_id, product_barcode, quantity, bin_id)
+        success, stock_level = stock_transfer_svc(
+            from_location_id, 
+            to_location_id, 
+            product_barcode, 
+            quantity, 
+            bin_id,
+            reference,
+            note,
+            user_id
+        )
 
         if not success:
                 return jsonify({
