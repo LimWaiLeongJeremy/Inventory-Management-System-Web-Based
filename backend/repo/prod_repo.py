@@ -4,8 +4,9 @@ from .query.prod_qry import (
     GET_PRODUCT_BY_LOCATION_ZONE_BIN, 
     GET_LOCATION_BY_PRODUCT,
     GET_CUR_STOCK_BY_ID,
-    INS_OUTBOUND,
-    INS_INBOUND
+    IST_OUTBOUND,
+    IST_INBOUND,
+    IST_TXN_LOGS
 )
 from models.prod_model import (
     Product,
@@ -60,7 +61,7 @@ def ist_outbound_repo(conn, quantity, product_id, location_id):
     try:
         # Execute query
         rows = cursor.execute(
-            INS_OUTBOUND, 
+            IST_OUTBOUND, 
             (
                 quantity,
                 product_id,
@@ -79,12 +80,46 @@ def ist_inbound_repo(conn, quantity, product_id, location_id, bin_id):
     try:
         # Execute query
         rows = cursor.execute(
-            INS_INBOUND, 
+            IST_INBOUND, 
             (
                 product_id,
                 location_id,
                 quantity,
                 bin_id
+            ))
+
+        if cursor.rowcount > 0:
+            return True
+        return False
+    finally:
+        cursor.close()
+
+
+def ist_txn_logs_repo(
+        conn, 
+        types, 
+        product_id, 
+        from_location_id, 
+        to_location_id, 
+        quantity, 
+        reference, 
+        note,
+        user_id
+    ):
+    cursor = conn.cursor()
+    try:
+        # Execute query
+        rows = cursor.execute(
+            IST_TXN_LOGS, 
+            (
+                types, 
+                product_id, 
+                from_location_id, 
+                to_location_id, 
+                quantity, 
+                reference, 
+                note,
+                user_id
             ))
 
         if cursor.rowcount > 0:
