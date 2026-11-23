@@ -1,11 +1,17 @@
 import traceback
 
-from flask import Blueprint, jsonify
-from flask_jwt_extended import jwt_required, get_jwt
+from flask import (
+    Blueprint, 
+    jsonify,
+    request
+)
+from flask_jwt_extended import jwt_required, get_jwt, get_jwt_identity
 
 from services.prod_svc import (
     get_product_by_location_zone_bin_svc, 
-    get_location_by_product_svc
+    get_location_by_product_svc,
+    get_all_products_svc,
+    stock_transfer_svc
 )
 
 # ========== Create blueprint ==========
@@ -58,6 +64,95 @@ def get_prod_by_loc_api(location_code, zone_id, bin_id):
         }), 500
 
 
+# Stock transfer api
+@product_bp.route('/api/product/transfer/', methods=['POST'])
+@jwt_required()
+def stock_transfer_api():   
+    # get data from body
+    data = request.get_json()  
+
+    # Validate if body has content
+    if data is None:
+        return jsonify({
+            "status": "error",
+            "data": "Invalid or missing JSON data"
+        }), 400
+
+    # retriving datas
+    from_location_id = data.get('from_location_id', "")
+    to_location_id = data.get('to_location_id', "")
+    product_barcode = data.get('product_barcode', "")
+    quantity = data.get('quantity', "")
+    bin_id = data.get('bin_id', "")
+    reference = data.get('reference', "")
+    note = data.get('note', "")
+    user_id = get_jwt_identity()
+    
+
+    # validate json value
+    if not isinstance(from_location_id, int) or not from_location_id:
+        return jsonify({
+            "status": "error",
+            "data": "source location cannot be empty"
+        }), 400
+
+    if not isinstance(to_location_id, int) or not to_location_id:
+        return jsonify({
+            "status": "error",
+            "data": "destination location cannot be empty"
+        }), 400
+
+    if not isinstance(product_barcode, str) or not product_barcode:
+        return jsonify({
+            "status": "error",
+            "data": "product cannot be empty"
+        }), 400
+
+    if not isinstance(quantity, int) or not quantity:
+        return jsonify({
+            "status": "error",
+            "data": "quantity cannot be empty"
+        }), 400
+
+    if not isinstance(bin_id, int) or not bin_id:
+        return jsonify({
+            "status": "error",
+            "data": "bin id cannot be empty"
+        }), 400
+        
+
+    try:
+        success, stock_level = stock_transfer_svc(
+            from_location_id, 
+            to_location_id, 
+            product_barcode, 
+            quantity, 
+            bin_id,
+            reference,
+            note,
+            user_id
+        )
+
+        if not success:
+                return jsonify({
+                    "status": "error",
+                    "data": stock_level
+                }),409
+        return jsonify({
+            'status': "success",
+            'stock_level': stock_level
+        }), 200
+
+    except Exception:
+        traceback.print_exc()
+
+        return jsonify({
+            "status": "error",
+            "data": "Internal server error"
+        }), 500
+
+
+
 @product_bp.route('/api/product/<string:product_name>/summary', methods=['GET'])
 @jwt_required()
 def get_loc_by_prod_api(product_name):
@@ -88,6 +183,44 @@ def get_loc_by_prod_api(product_name):
             'status': "success",
             'product name': product_name,
             'products': [prod.to_dict() for prod in products]
+        }), 200
+
+    except Exception:
+        traceback.print_exc()
+
+        return jsonify({
+            "status": "error",
+            "data": "Internal server error"
+        }), 500
+
+
+
+
+
+@product_bp.route('/api/all_products', methods=['GET'])
+@jwt_required()
+def get_all_products_api():
+
+    # Check for access
+    claims = get_jwt()
+    if claims.get("role") == "user":
+        return jsonify({
+            "status": "error",
+            "data": "Forbidden"
+        }), 403
+
+    try:
+        success, result = get_all_products_svc()
+
+        if not success:
+            return jsonify({
+                "status": "error",
+                "data": result
+            }), 404
+
+        return jsonify({
+            "status": "success",
+            "products": [prod.to_dict() for prod in result]
         }), 200
 
     except Exception:
