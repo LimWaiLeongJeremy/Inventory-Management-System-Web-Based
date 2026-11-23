@@ -62,14 +62,14 @@ CREATE TABLE public.bins (
 -- Products
 -- ---------------------------------------------------------------------------
 CREATE TABLE public.products (
-    id            bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,   -- internal key only
-    barcode       varchar(64)  NOT NULL UNIQUE,                      -- the product identifier
+    barcode       bigint       PRIMARY KEY,                          -- the product identifier, entered (not auto-numbered)
+    sku           varchar(64)  NOT NULL UNIQUE,
     name          varchar(200) NOT NULL,
     category      varchar(80)  NOT NULL DEFAULT '',
     unit          varchar(20)  NOT NULL,
     reorder_level integer      NOT NULL DEFAULT 0,
-    restock_at    timestamptz,                                       -- last restock date
     created_at    timestamptz  NOT NULL DEFAULT now(),
+    restock_at    timestamptz,                                       -- last restock date
     CONSTRAINT ck_product_reorder_nonneg CHECK (reorder_level >= 0)
 );
 
@@ -77,7 +77,7 @@ CREATE TABLE public.products (
 -- Stock
 -- ---------------------------------------------------------------------------
 CREATE TABLE public.stock_levels (
-    product_id  bigint  NOT NULL REFERENCES public.products (id),
+    product_id  bigint  NOT NULL REFERENCES public.products (barcode),
     location_id bigint  NOT NULL REFERENCES public.locations (id),
     bin_id      bigint  REFERENCES public.bins (id),   -- where the product sits in the location
     quantity    integer NOT NULL DEFAULT 0,
@@ -88,8 +88,8 @@ CREATE INDEX ix_stock_levels_bin ON public.stock_levels (bin_id);
 
 -- Out of stock = total quantity across all locations is 0
 CREATE VIEW public.product_stock WITH (security_invoker = true) AS
-SELECT p.id,
-       p.barcode,
+SELECT p.barcode,
+       p.sku,
        p.name,
        p.category,
        p.unit,
@@ -98,8 +98,8 @@ SELECT p.id,
        COALESCE(sum(s.quantity), 0)::integer AS total_quantity,
        COALESCE(sum(s.quantity), 0) = 0      AS out_of_stock
   FROM public.products p
-  LEFT JOIN public.stock_levels s ON s.product_id = p.id
- GROUP BY p.id;
+  LEFT JOIN public.stock_levels s ON s.product_id = p.barcode
+ GROUP BY p.barcode;
 
 -- ---------------------------------------------------------------------------
 -- Stocktakes
@@ -120,7 +120,7 @@ CREATE UNIQUE INDEX uq_stocktake_one_draft_per_location
 
 CREATE TABLE public.stocktake_lines (
     stocktake_id bigint  NOT NULL REFERENCES public.stocktakes (id) ON DELETE CASCADE,
-    product_id   bigint  NOT NULL REFERENCES public.products (id),
+    product_id   bigint  NOT NULL REFERENCES public.products (barcode),
     counted_qty  integer,
     system_qty   integer,
     PRIMARY KEY (stocktake_id, product_id),
@@ -133,7 +133,7 @@ CREATE TABLE public.stocktake_lines (
 CREATE TABLE public.transactions (
     id               bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     type             varchar(12)  NOT NULL,
-    product_id       bigint       NOT NULL REFERENCES public.products (id),
+    product_id       bigint       NOT NULL REFERENCES public.products (barcode),
     from_location_id bigint       REFERENCES public.locations (id),
     to_location_id   bigint       REFERENCES public.locations (id),
     quantity         integer      NOT NULL,
