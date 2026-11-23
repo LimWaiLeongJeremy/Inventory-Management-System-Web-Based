@@ -152,3 +152,35 @@ INSERT_TRX_LOGS = """
         %s
     );
 """
+
+
+
+# Get all products
+GET_ALL_PRODUCTS = """
+    SELECT
+        p.barcode,
+        p.sku,
+        p.name,
+        p.category,
+        p.unit,
+        p.reorder_level,
+        COALESCE(sl.quantity, 0) AS quantity,
+        l.name AS location,
+        z.code AS zone,
+        b.code AS bin,
+        CASE
+            WHEN COALESCE(sl.quantity, 0) = 0 THEN 'Out of Stock'
+            WHEN COALESCE(sl.quantity, 0) <= p.reorder_level THEN 'Low Stock'
+            ELSE 'In Stock'
+        END AS status
+    FROM products p
+    LEFT JOIN stock_levels sl
+        ON p.barcode = sl.product_id
+    LEFT JOIN locations l
+        ON sl.location_id = l.id
+    LEFT JOIN bins b
+        ON sl.bin_id = b.id
+    LEFT JOIN zones z
+        ON b.zone_id = z.id
+    ORDER BY p.barcode
+"""
