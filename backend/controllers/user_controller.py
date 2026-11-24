@@ -145,11 +145,13 @@ def user_login_api():
         session.clear()
         session.permanent = remember
         session["user_id"] = result["user_id"]
+        session["username"] = result["username"]
+        session["role"] = result["role"]
 
         return jsonify({
             "status": "success",
             "data": result
-        }), 200   
+        }), 200
 
 
     except Exception:
@@ -159,4 +161,15 @@ def user_login_api():
             "status": "error",
             "data": "Internal server error"
         }), 500
+
+
+@user_bp.route('/api/user/logout', methods=['POST'])
+def user_logout_api():
+    # Remove the login session; the frontend also deletes its stored token
+    session.clear()
+
+    return jsonify({
+        "status": "success",
+        "data": "Logged out"
+    }), 200
 
