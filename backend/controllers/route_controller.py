@@ -1,5 +1,5 @@
 from decorators.auth_decorator import require_login
-from flask import Blueprint, render_template
+from flask import Blueprint, make_response, render_template, session
  
 
 # ========== Create blueprint ==========
@@ -20,4 +20,13 @@ def login():
 @route_bp.route('/dashboard')
 @require_login
 def dashboard():
-    return render_template("dashboard.html")
+    # signed-in username shown at the bottom of the sidebar
+    response = make_response(render_template(
+        "dashboard.html",
+        username=session.get("username", ""),
+        role=session.get("role", "")
+    ))
+
+    # dont keep a copy in the browser, so back after logging out can't show this page
+    response.headers["Cache-Control"] = "no-store"
+    return response
