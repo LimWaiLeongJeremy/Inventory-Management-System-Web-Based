@@ -9,7 +9,7 @@ from flask_jwt_extended import jwt_required, get_jwt, get_jwt_identity
 
 from services.prod_svc import (
     get_product_by_location_zone_bin_svc, 
-    get_location_by_product_svc,
+    #get_location_by_product_svc,
     get_all_products_svc,
     stock_transfer_svc
 )
