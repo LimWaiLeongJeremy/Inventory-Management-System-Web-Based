@@ -136,6 +136,27 @@ IST_TXN_LOGS = """
     );
 """
 
+GET_TRANSFER_ELIGIBILITY = """
+    SELECT 
+		CASE
+	        WHEN COALESCE(st.quantity, 0) < %s
+	            THEN FALSE	
+	        ELSE TRUE
+	    END AS status
+    FROM 
+        stock_levels st, 
+        products p, 
+        locations l
+    WHERE 
+        st.product_id = p.barcode
+    AND 
+        st.location_id = l.id
+    AND 
+        l.id = %s
+    AND 
+        p.barcode = %s
+    ;
+"""
 
 
 # Get all products
