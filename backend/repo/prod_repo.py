@@ -4,7 +4,7 @@ from .query.prod_qry import (
     GET_PRODUCT_BY_LOCATION_ZONE_BIN,
     GET_LOCATION_BY_PRODUCT,
     GET_ALL_PRODUCTS,
-    GET_CUR_STOCK_BY_ID,
+    GET_CUR_STOCK_BY_ID_FOR_UPDATE,
     IST_OUTBOUND,
     IST_INBOUND,
     IST_TXN_LOGS,
@@ -45,7 +45,7 @@ def get_current_stock_by_id_repo(conn, location_id, product_barcode):
     try:
         # Execute query
         rows = cursor.execute(
-            GET_CUR_STOCK_BY_ID, 
+            GET_CUR_STOCK_BY_ID_FOR_UPDATE, 
             (
                 location_id,
                 product_barcode,

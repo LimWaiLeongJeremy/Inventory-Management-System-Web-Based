@@ -63,7 +63,7 @@ GET_LOCATION_BY_PRODUCT = """
 # ============= Stock Transfer queries ==============
 
 # Check and lock current stock
-GET_CUR_STOCK_BY_ID = """
+GET_CUR_STOCK_BY_ID_FOR_UPDATE = """
     SELECT 
         st.*
     FROM 
@@ -135,7 +135,7 @@ IST_TXN_LOGS = """
         %s
     );
 """
-
+# Check transfer eligibility
 GET_TRANSFER_ELIGIBILITY = """
     SELECT 
 		CASE
