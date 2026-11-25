@@ -3,12 +3,13 @@ import traceback
 from database.db import get_db_connection
 from repo.prod_repo import (
     get_product_by_location_zone_bin_repo, 
-    get_location_by_product_repo,
+    # get_location_by_product_repo,
     get_all_products,
     get_current_stock_by_id_repo,
     ist_outbound_repo,
     ist_inbound_repo,
-    ist_txn_logs_repo
+    ist_txn_logs_repo,
+    get_product_transfer_eligibility_repo
 )
 
 
@@ -49,11 +50,24 @@ def stock_transfer_svc(
     conn = get_db_connection()
     try:
         # Get and lock product 
-        status, pre_trns_result = get_current_stock_by_id_repo(
+        source_exists, pre_trns_result = get_current_stock_by_id_repo(
             conn, from_location_id, product_barcode)
         # Check if data exists
-        if not status:
-            return status, "Invalid product"
+        if not source_exists:
+            return source_exists, "Invalid product"
+        
+            # Check for transfer eligibility
+        eligible = get_product_transfer_eligibility_repo(
+            conn,
+            quantity,
+            from_location_id,
+            product_barcode
+        )
+        if not eligible:
+            return False, (
+                f"Not enough stock for product ID:{product_barcode} "
+                f"at location ID:{from_location_id}"
+            )
 
         # insert outbound record
         ist_out_success = ist_outbound_repo(
@@ -61,7 +75,7 @@ def stock_transfer_svc(
         if not ist_out_success:
             conn.rollback()
             return ist_out_success, "Insert outbound record failed"
-        status, source_result = get_current_stock_by_id_repo(
+        source_updated, source_result = get_current_stock_by_id_repo(
             conn, from_location_id, product_barcode)
 
         # TODO 
@@ -73,7 +87,7 @@ def stock_transfer_svc(
             conn.rollback()
             return ist_in_success, "Insert inbound record failed"
 
-        ist_txn_success = ist_txn_logs_repo(
+        ist_txn_logs_success = ist_txn_logs_repo(
             conn,
             "TRANSFER",
             product_barcode,
@@ -84,20 +98,22 @@ def stock_transfer_svc(
             note,
             user_id
         )
+        if not ist_txn_logs_success:
+            conn.rollback()
+            return False, "Insert transaction log failed"
 
-        # For testing
-        status, dest_result = get_current_stock_by_id_repo(
+        dest_updated, dest_result = get_current_stock_by_id_repo(
             conn, to_location_id, product_barcode)
 
         result = {
             "source": [stk.to_dict() for stk in source_result],
             "destination": [stk.to_dict() for stk in dest_result],
-            "logs": ist_txn_success
+            "logs": ist_txn_logs_success
         }
         # TODO
         # Change to commit
         conn.rollback()
-        return status, result
+        return True, result
     # Raise exception if failed
     except Exception:
         conn.rollback()
@@ -109,23 +125,23 @@ def stock_transfer_svc(
 
 
 
-def get_location_by_product_svc(product_name):
-    conn = get_db_connection()
-    try:
-        status, result = get_location_by_product_repo(
-            conn, product_name)
-        # Check if data exists
-        if not result:
-            return False, "Invalid product"
+# def get_location_by_product_svc(product_name):
+#     conn = get_db_connection()
+#     try:
+#         status, result = get_location_by_product_repo(
+#             conn, product_name)
+#         # Check if data exists
+#         if not result:
+#             return False, "Invalid product"
         
-        return status, result
-    # Raise exception if failed
-    except Exception:
-        conn.rollback()
-        traceback.print_exc()
-        raise
-    finally:
-        conn.close() 
+#         return status, result
+#     # Raise exception if failed
+#     except Exception:
+#         conn.rollback()
+#         traceback.print_exc()
+#         raise
+#     finally:
+#         conn.close() 
 
 
 def get_all_products_svc():

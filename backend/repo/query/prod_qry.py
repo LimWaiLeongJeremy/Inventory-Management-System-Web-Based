@@ -70,7 +70,7 @@ GET_LOCATION_BY_PRODUCT = """
 # ============= Stock Transfer queries ==============
 
 # Check and lock current stock
-GET_CUR_STOCK_BY_ID = """
+GET_CUR_STOCK_BY_ID_FOR_UPDATE = """
     SELECT 
         st.*
     FROM 
@@ -142,7 +142,28 @@ IST_TXN_LOGS = """
         %s
     );
 """
-
+# Check transfer eligibility
+GET_TRANSFER_ELIGIBILITY = """
+    SELECT 
+		CASE
+	        WHEN COALESCE(st.quantity, 0) < %s
+	            THEN FALSE	
+	        ELSE TRUE
+	    END AS status
+    FROM 
+        stock_levels st, 
+        products p, 
+        locations l
+    WHERE 
+        st.product_id = p.barcode
+    AND 
+        st.location_id = l.id
+    AND 
+        l.id = %s
+    AND 
+        p.barcode = %s
+    ;
+"""
 
 
 # Get all products

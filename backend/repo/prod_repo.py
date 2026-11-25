@@ -4,10 +4,11 @@ from .query.prod_qry import (
     GET_PRODUCT_BY_LOCATION_ZONE_BIN,
     GET_LOCATION_BY_PRODUCT,
     GET_ALL_PRODUCTS,
-    GET_CUR_STOCK_BY_ID,
+    GET_CUR_STOCK_BY_ID_FOR_UPDATE,
     IST_OUTBOUND,
     IST_INBOUND,
-    IST_TXN_LOGS
+    IST_TXN_LOGS,
+    GET_TRANSFER_ELIGIBILITY
 )
 
 from models.prod_model import (
@@ -44,7 +45,7 @@ def get_current_stock_by_id_repo(conn, location_id, product_barcode):
     try:
         # Execute query
         rows = cursor.execute(
-            GET_CUR_STOCK_BY_ID, 
+            GET_CUR_STOCK_BY_ID_FOR_UPDATE, 
             (
                 location_id,
                 product_barcode,
@@ -134,19 +135,15 @@ def ist_txn_logs_repo(
 
 
 
-def get_location_by_product_repo(conn, product_name):
+def get_product_transfer_eligibility_repo(conn, quantity, location_id, product_barcode):
     cursor = conn.cursor()
     try:
         # Execute query
-        rows = cursor.execute(
-            GET_LOCATION_BY_PRODUCT, 
-            (product_name,))
+        status = cursor.execute(
+            GET_TRANSFER_ELIGIBILITY, 
+            (quantity, location_id, product_barcode,)).fetchone()[0]
 
-        # Setting model
-        columns = [desc[0] for desc in cursor.description]
-        products = [Product.from_row(columns, row) for row in rows]
-
-        return True, products
+        return status if status else False
     finally:
         cursor.close()
 

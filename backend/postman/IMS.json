@@ -604,7 +604,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"from_location_id\": 7,\n  \"to_location_id\": 8,\n  \"product_barcode\": \"97\",\n  \"quantity\": 5,\n  \"bin_id\": 85\n}",
+          "raw": "{\n  \"from_location_id\": 7,\n  \"to_location_id\": 8,\n  \"product_barcode\": \"95\",\n  \"quantity\": 5,\n  \"bin_id\": 85\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -649,6 +649,64 @@
           "body": ""
         }
       ]
+    },
+    {
+      "name": "Get All Product and Stock Stauts ",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "description": "",
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/all_products",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1:5000"
+          ],
+          "path": [
+            "api",
+            "all_products"
+          ],
+          "query": [],
+          "variable": []
+        }
+      },
+      "response": [
+        {
+          "name": "200 Response",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/locations/:location/products",
+              "protocol": "",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "locations",
+                ":location",
+                "products"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "location",
+                  "value": "basement 1"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [],
+          "cookie": [],
+          "body": ""
+        }
+      ]
     }
   ],
   "variable": [
@@ -663,7 +721,7 @@
     "bearer": [
       {
         "key": "token",
-        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc5NTQxMjQ3OCwianRpIjoiMTE0YWRlM2UtZGJiMS00Y2ZkLWFlODQtOGIzMGNiMmMyMjg4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjI4IiwibmJmIjoxNzk1NDEyNDc4LCJjc3JmIjoiYzVkZDhmYmMtMmI1Yi00NWM1LWFmNjMtNjJmMDMzM2M0MWE0IiwiZXhwIjoxNzk1NDEzMzc4LCJyb2xlIjoiYWRtaW4ifQ.Px-PP3RNTWBLbdqu02jfFf2GMSGYP93MXacuZtZDzkc",
+        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc5NTUyMTkzMSwianRpIjoiNTRlYjlhOGUtN2NiNC00OGM2LWEyNTAtMjdmNmUyNGU2ODEyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjMyIiwibmJmIjoxNzk1NTIxOTMxLCJjc3JmIjoiY2M5YTExNDYtMzA2Yy00OTUyLTk5MTMtNDgxOWZhMzc3NjQ1IiwiZXhwIjoxNzk1NTIyODMxLCJyb2xlIjoidXNlciJ9.AdOpIypWkcipeG1UJVV3pK-urX48oJniroQ_ln1fHxU",
         "type": "string"
       }
     ]
