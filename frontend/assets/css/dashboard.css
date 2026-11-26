@@ -122,6 +122,12 @@ button { font: inherit; color: inherit; }
   letter-spacing: -0.02em;
 }
 
+.page-subtitle {
+  margin-top: 6px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
 /* Sidebar */
 .sidebar {
   position: sticky;
