@@ -11,13 +11,6 @@ const userMenu = document.getElementById("userMenu");
 const logoutBtn = document.getElementById("logoutBtn");
 
 
-// Highlight the link for the current page
-document.querySelectorAll(".nav-link[data-path]").forEach((link) => {
-  if (link.dataset.path === window.location.pathname) {
-    link.classList.add("active");
-    link.setAttribute("aria-current", "page");
-  }
-});
 
 
 // Open / close the sidebar on small screens
