@@ -36,9 +36,7 @@ p { margin: 0; }
 ul { margin: 0; padding: 0; list-style: none; }
 button { font: inherit; color: inherit; }
 
-/* Icons: SVG files used as a mask so they take the text colour (grey, or teal when active).
-   In the HTML, --icon paths must start with "/" because a url() inside a CSS variable
-   is resolved from this stylesheet's folder, not from the page. */
+
 .icon {
   width: 18px;
   height: 18px;
@@ -56,11 +54,66 @@ button { font: inherit; color: inherit; }
   display: flex;
 }
 
-.content {
+/* Right side: breadcrumb bar on top, page content below */
+.main {
   flex: 1;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1;
   padding: 32px;
 }
+
+/* Breadcrumb bar */
+.breadcrumb {
+  padding: 18px 32px;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+}
+
+.breadcrumb ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.breadcrumb li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* chevron between items */
+.breadcrumb li + li::before {
+  content: "";
+  width: 14px;
+  height: 14px;
+  background-color: currentColor;
+  -webkit-mask: url("../icons/chevron-right.svg") center / contain no-repeat;
+          mask: url("../icons/chevron-right.svg") center / contain no-repeat;
+}
+
+.breadcrumb [aria-current="page"] {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.crumb-home {
+  display: flex;
+  color: var(--text-muted);
+  border-radius: 4px;
+}
+
+.crumb-home:hover { color: var(--text); }
+.crumb-home:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
 
 .content h1 {
   margin: 0;
@@ -220,6 +273,8 @@ button { font: inherit; color: inherit; }
   gap: 2px;
 }
 
+.nav-list + .nav-label { margin-top: 24px; }   /* space before the Administration group */
+
 .nav-link {
   display: flex;
   align-items: center;
@@ -312,6 +367,7 @@ button { font: inherit; color: inherit; }
   .backdrop[hidden] { display: none; }
 
   .content { padding: 24px 16px; }
+  .breadcrumb { padding: 14px 16px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
