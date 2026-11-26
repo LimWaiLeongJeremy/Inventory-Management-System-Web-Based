@@ -5,6 +5,7 @@ from repo.prod_repo import (
     get_product_by_location_zone_bin_repo, 
     # get_location_by_product_repo,
     get_all_products_repo,
+    get_products_by_out_of_stock_repo,
     get_current_stock_by_id_repo,
     ist_outbound_repo,
     ist_inbound_repo,
@@ -161,5 +162,22 @@ def get_all_products_svc():
         traceback.print_exc()
         raise
 
+    finally:
+        conn.close()
+
+
+
+def get_products_by_out_of_stock_svc(status):
+    conn = get_db_connection()
+    try:
+        status, result = get_products_by_out_of_stock_repo(conn, status)
+
+        # Empty list is valid (no products in this status)
+        return status, result
+    # Raise exception if failed
+    except Exception:
+        conn.rollback()
+        traceback.print_exc()
+        raise
     finally:
         conn.close()
