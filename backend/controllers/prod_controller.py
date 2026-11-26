@@ -9,7 +9,7 @@ from flask_jwt_extended import jwt_required, get_jwt, get_jwt_identity
 
 from services.prod_svc import (
     get_product_by_location_zone_bin_svc, 
-    get_location_by_product_svc,
+    # get_location_by_product_svc,
     get_all_products_svc,
     stock_transfer_svc
 )
@@ -153,45 +153,45 @@ def stock_transfer_api():
 
 
 
-@product_bp.route('/api/product/<string:product_name>/summary', methods=['GET'])
-@jwt_required()
-def get_loc_by_prod_api(product_name):
-    # Check for access 
-    claims = get_jwt()
-    if claims.get("role") == "user":
-        return jsonify({
-            "status": "error",
-            "data": "Forbidden"
-        }), 403
+# @product_bp.route('/api/product/<string:product_name>/summary', methods=['GET'])
+# @jwt_required()
+# def get_loc_by_prod_api(product_name):
+#     # Check for access 
+#     claims = get_jwt()
+#     if claims.get("role") == "user":
+#         return jsonify({
+#             "status": "error",
+#             "data": "Forbidden"
+#         }), 403
 
-    # validate json value
-    if not isinstance(product_name, str) or not product_name:
-        return jsonify({
-            "status": "error",
-            "data": "product cannot be empty"
-        }), 400
+#     # validate json value
+#     if not isinstance(product_name, str) or not product_name:
+#         return jsonify({
+#             "status": "error",
+#             "data": "product cannot be empty"
+#         }), 400
 
-    try:
-        success, products = get_location_by_product_svc(product_name)
+#     try:
+#         success, products = get_location_by_product_svc(product_name)
 
-        if not success:
-                return jsonify({
-                    "status": "error",
-                    "data": result
-                }),409
-        return jsonify({
-            'status': "success",
-            'product name': product_name,
-            'products': [prod.to_dict() for prod in products]
-        }), 200
+#         if not success:
+#                 return jsonify({
+#                     "status": "error",
+#                     "data": result
+#                 }),409
+#         return jsonify({
+#             'status': "success",
+#             'product name': product_name,
+#             'products': [prod.to_dict() for prod in products]
+#         }), 200
 
-    except Exception:
-        traceback.print_exc()
+#     except Exception:
+#         traceback.print_exc()
 
-        return jsonify({
-            "status": "error",
-            "data": "Internal server error"
-        }), 500
+#         return jsonify({
+#             "status": "error",
+#             "data": "Internal server error"
+#         }), 500
 
 
 
