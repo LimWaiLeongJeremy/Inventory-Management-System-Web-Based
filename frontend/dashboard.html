@@ -29,8 +29,9 @@
         <span class="logo-text">Company</span>
       </a>
 
-      <!-- Main pages -->
+      <!-- Main pages. Links depend on the role saved in the session at login: -->
       <nav class="nav-section">
+        {% if role != "admin" %}
         <p class="nav-label">Workspace</p>
         <ul class="nav-list">
           <li>
@@ -39,12 +40,14 @@
               Overview
             </a>
           </li>
+          {% if role == "supervisor" %}
           <li>
             <a href="#" class="nav-link" data-path="/stocktaking">
               <span class="icon" style="--icon: url('/assets/icons/package.svg')"></span>
               Stocktaking
             </a>
           </li>
+          {% endif %}
           <li>
             <a href="#" class="nav-link" data-path="/transfers">
               <span class="icon" style="--icon: url('/assets/icons/arrow-left-right.svg')"></span>
@@ -58,6 +61,19 @@
             </a>
           </li>
         </ul>
+        {% endif %}
+
+        {% if role == "admin" %}
+        <p class="nav-label">Administration</p>
+        <ul class="nav-list">
+          <li>
+            <a href="#" class="nav-link" data-path="/users">
+              <span class="icon" style="--icon: url('/assets/icons/users.svg')"></span>
+              User management
+            </a>
+          </li>
+        </ul>
+        {% endif %}
       </nav>
 
       <!-- Signed-in user (username and role come from the login session) -->
@@ -86,10 +102,25 @@
     <!-- Dim background behind the open sidebar on small screens -->
     <div class="backdrop" id="navBackdrop" hidden></div>
 
-    <!-- Page content -->
-    <main class="content">
-      <h1>Overview</h1>
-    </main>
+    <div class="main">
+      <!-- Breadcrumb: where this page sits (home > section > page) -->
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <ol>
+          <li>
+            <a href="/dashboard" class="crumb-home" aria-label="Home">
+              <span class="icon" style="--icon: url('/assets/icons/home.svg')"></span>
+            </a>
+          </li>
+          <li>Workspace</li>
+          <li aria-current="page">Overview</li>
+        </ol>
+      </nav>
+
+      <!-- Page content -->
+      <main class="content">
+        <h1>Overview</h1>
+      </main>
+    </div>
   </div>
 
   <script src="assets/js/dashboard.js"></script>
