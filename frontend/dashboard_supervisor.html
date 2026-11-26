@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% set active_page = "overview" %}
+
+{% block title %}Overview{% endblock %}
+
+{% block breadcrumb %}
+  <li>Workspace</li>
+  <li aria-current="page">Overview</li>
+{% endblock %}
+
+{% block content %}
+  <h1>Overview</h1>
+  <p class="page-subtitle">Manage your catalog and give every product a place.</p>
+
+  <!-- TODO (Supervisor's dashboard): stat cards, storage locations, product catalog. -->
+{% endblock %}
