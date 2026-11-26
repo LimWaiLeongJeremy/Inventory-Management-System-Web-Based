@@ -90,7 +90,8 @@ form.addEventListener("submit", async (e) => {
     const response = await fetch(`${API_BASE_URL}/api/user/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password }),
+      // remember = true keeps the flask session for 30 days else it ends when the browser closes
+      body: JSON.stringify({ username, password, remember: rememberInput.checked }),
     });
     const result = await response.json().catch(() => ({}));
     

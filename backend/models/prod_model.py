@@ -11,8 +11,8 @@ class Product:
     reorder_level: int
     quantity: int
     location: str
-    zone: str
-    bin: str
+    zone: int
+    bin: int
 
     # Method to set data from db to model
     @classmethod

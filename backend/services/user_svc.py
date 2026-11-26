@@ -89,6 +89,8 @@ def user_auth_svc(username, password):
 
         user = {
             "user_id": result.id,
+            "username": result.username,
+            "role": result.role,
             "access_token": access_token
         }
 
