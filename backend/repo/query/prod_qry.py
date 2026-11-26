@@ -195,3 +195,44 @@ GET_ALL_PRODUCTS = """
         ON b.zone_id = z.id
     ORDER BY p.barcode
 """
+
+
+# Get products filtered by stock status (Low Stock / Out of Stock)
+# Quantity is totalled across all locations per product
+GET_PRODUCTS_BY_OUT_OF_STOCK = """
+    SELECT *
+    FROM (
+        SELECT
+            p.barcode,
+            p.sku,
+            p.name,
+            p.category,
+            p.unit,
+            p.reorder_level,
+            COALESCE(SUM(sl.quantity), 0) AS quantity,
+            STRING_AGG(DISTINCT l.name, ', ') AS location,
+            STRING_AGG(DISTINCT z.code, ', ') AS zone,
+            STRING_AGG(DISTINCT b.code, ', ') AS bin,
+            CASE
+                WHEN COALESCE(SUM(sl.quantity), 0) = 0 THEN 'Out of Stock'
+                WHEN COALESCE(SUM(sl.quantity), 0) <= p.reorder_level THEN 'Low Stock'
+                ELSE 'In Stock'
+            END AS status
+        FROM products p
+        LEFT JOIN stock_levels sl
+            ON p.barcode = sl.product_id
+        LEFT JOIN locations l
+            ON sl.location_id = l.id
+        LEFT JOIN bins b
+            ON sl.bin_id = b.id
+        LEFT JOIN zones z
+            ON b.zone_id = z.id
+        GROUP BY
+            p.barcode, p.sku, p.name, p.category, p.unit, p.reorder_level
+    ) AS stock_summary
+    WHERE
+        stock_summary.status = %s
+    ORDER BY
+        stock_summary.quantity, stock_summary.barcode
+    ;
+"""
