@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% set active_page = "transactions" %}
+
+{% block title %}Transaction log{% endblock %}
+
+{% block breadcrumb %}
+  <li>Workspace</li>
+  <li aria-current="page">Transaction log</li>
+{% endblock %}
+
+{% block content %}
+  <h1>Transaction log</h1>
+  <p class="page-subtitle">A complete audit trail of stock movements across every warehouse.</p>
+
+  <!-- TODO (Transaction log): stat cards, filters, transactions table, export. -->
+{% endblock %}
