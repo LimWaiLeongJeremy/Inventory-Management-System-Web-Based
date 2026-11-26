@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% set active_page = "overview" %}
+
+{% block title %}Bin {{ bin_code }}{% endblock %}
+
+{% block breadcrumb %}
+  <li>Workspace</li>
+  <li aria-current="page">Bin {{ bin_code }}</li>
+{% endblock %}
+
+{% block content %}
+  <h1>Bin {{ bin_code }}</h1>
+  <p class="page-subtitle">View and manage the products stored in this bin.</p>
+
+  <!-- TODO (Bin details): location / zone / bin cards, products in this bin. -->
+{% endblock %}
