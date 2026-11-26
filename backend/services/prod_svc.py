@@ -4,7 +4,7 @@ from database.db import get_db_connection
 from repo.prod_repo import (
     get_product_by_location_zone_bin_repo, 
     # get_location_by_product_repo,
-    get_all_products,
+    get_all_products_repo,
     get_current_stock_by_id_repo,
     ist_outbound_repo,
     ist_inbound_repo,
@@ -148,7 +148,7 @@ def get_all_products_svc():
     conn = get_db_connection()
 
     try:
-        products = get_all_products(conn)
+        products = get_all_products_repo(conn)
 
         # Check if products exist
         if not products:

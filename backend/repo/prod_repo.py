@@ -13,7 +13,7 @@ from .query.prod_qry import (
 
 from models.prod_model import (
     Product,
-    All_Product,
+    Stocks,
     Stock_Level
 )
 
@@ -150,8 +150,8 @@ def get_product_transfer_eligibility_repo(conn, quantity, location_id, product_b
 
 
 
-def get_all_products(db):
-    cursor = db.cursor()
+def get_all_products_repo(conn):
+    cursor = conn.cursor()
 
     try:
         cursor.execute(GET_ALL_PRODUCTS)
@@ -161,7 +161,7 @@ def get_all_products(db):
         columns = [column[0] for column in cursor.description]
 
         products = [
-            All_Product.from_row(columns, row)
+            Stocks.from_row(columns, row)
             for row in rows
         ]
         return products

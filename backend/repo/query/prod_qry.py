@@ -175,26 +175,55 @@ GET_ALL_PRODUCTS = """
         p.category,
         p.unit,
         p.reorder_level,
-        COALESCE(sl.quantity, 0) AS quantity,
-        l.name AS location,
-        z.code AS zone,
-        b.code AS bin,
+
+        COALESCE(SUM(sl.quantity), 0) AS quantity,
+
+        COALESCE(STRING_AGG(DISTINCT l.name, ', '), '-') AS location,
+        COALESCE(STRING_AGG(DISTINCT z.code, ', '), '-') AS zone,
+        COALESCE(STRING_AGG(DISTINCT b.code, ', '), '-') AS bin,
+
         CASE
-            WHEN COALESCE(sl.quantity, 0) = 0 THEN 'Out of Stock'
-            WHEN COALESCE(sl.quantity, 0) <= p.reorder_level THEN 'Low Stock'
+            WHEN COALESCE(SUM(sl.quantity), 0) <= 0
+                THEN 'Out of Stock'
+
+            WHEN EXISTS (
+                SELECT 1
+                FROM stock_levels sl2
+                WHERE sl2.product_id = p.barcode
+                GROUP BY sl2.location_id
+                HAVING SUM(sl2.quantity) <= p.reorder_level
+                   AND SUM(sl2.quantity) > 0
+            )
+                THEN 'Low Stock'
+
             ELSE 'In Stock'
         END AS status
+
     FROM products p
+
     LEFT JOIN stock_levels sl
         ON p.barcode = sl.product_id
+
     LEFT JOIN locations l
         ON sl.location_id = l.id
+
     LEFT JOIN bins b
         ON sl.bin_id = b.id
+
     LEFT JOIN zones z
         ON b.zone_id = z.id
+
+    GROUP BY
+        p.barcode,
+        p.sku,
+        p.name,
+        p.category,
+        p.unit,
+        p.reorder_level
+
     ORDER BY p.barcode
 """
+
 
 
 # Get products filtered by stock status (Low Stock / Out of Stock)

@@ -24,7 +24,7 @@ class Product:
 
 
 @dataclass
-class All_Product:
+class Stocks:
     barcode: int
     sku: str
     name: str
