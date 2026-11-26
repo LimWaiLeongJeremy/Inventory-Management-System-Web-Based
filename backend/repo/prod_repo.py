@@ -4,6 +4,7 @@ from .query.prod_qry import (
     GET_PRODUCT_BY_LOCATION_ZONE_BIN,
     GET_LOCATION_BY_PRODUCT,
     GET_ALL_PRODUCTS,
+    GET_PRODUCTS_BY_OUT_OF_STOCK,
     GET_CUR_STOCK_BY_ID_FOR_UPDATE,
     IST_OUTBOUND,
     IST_INBOUND,
@@ -165,5 +166,23 @@ def get_all_products_repo(conn):
             for row in rows
         ]
         return products
+    finally:
+        cursor.close()
+
+
+
+def get_products_by_out_of_stock_repo(conn, status):
+    cursor = conn.cursor()
+    try:
+        # Execute query
+        rows = cursor.execute(
+            GET_PRODUCTS_BY_OUT_OF_STOCK,
+            (status,)).fetchall()
+
+        # Setting model
+        columns = [desc[0] for desc in cursor.description]
+        products = [Stocks.from_row(columns, row) for row in rows]
+
+        return True, products
     finally:
         cursor.close()
